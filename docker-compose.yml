@@ -1,0 +1,16 @@
+version: "3"
+services:
+  react-app:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/usr/frontend
+    ports:
+      - 3000:3000
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge
