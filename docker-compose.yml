@@ -11,6 +11,16 @@ services:
     networks:
       - app
 
+  db:
+    image: postgres:13
+    restart: always
+    hostname: db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+
 networks:
   app:
     driver: bridge
