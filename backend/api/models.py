@@ -6,7 +6,7 @@ import uuid
 class User(models.Model):
     email = models.EmailField(max_length=254, blank=False)
     password = models.CharField(max_length=30, blank=False)
-    userPublicId = models.UUIDField(max_length=50, auto_created=True)
+    userPublicId = models.UUIDField(default=uuid.uuid4)
 
 
 class Appointment(models.Model):

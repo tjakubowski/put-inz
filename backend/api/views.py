@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from .serializers import UserSerializer, RegisterSerializer, AppointmentSerializer
 from django.shortcuts import redirect
 from .models import User, Appointment
+from rest_framework import status
 import uuid
 
 # Create your views here.
@@ -14,11 +15,11 @@ class RegisterAPI(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True) 
-        user = User(email=request.POST['email'], password=request.POST['password'], userPublicId=uuid.uuid4())
+        user = User(email=request.POST['email'], password=request.POST['password'])
         user.save()
         
-        x = serializer.save()
-        return redirect("/")
+        content={'':''} #add there jwt tocken and refresh tocken
+        return Response(content,status=status.HTTP_201_CREATED)
 
 
 class AppointmentAPI(generics.GenericAPIView):
@@ -32,6 +33,7 @@ class AppointmentAPI(generics.GenericAPIView):
             note=request.POST['note'] )
             appointment.save()
         
-            x = serializer.save()
-            return redirect("/")
+            content={'':''}
+            return Response(content,status=status.HTTP_201_CREATED)
+            
         
