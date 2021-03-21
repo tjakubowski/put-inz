@@ -1,10 +1,20 @@
 import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import HomePage from './views/HomePage';
+import GlobalStyle from "./theme/GlobalStyle";
+import {ThemeProvider} from "styled-components";
+import {theme} from "./theme/theme";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      Lorem ipsum
-    </div>
+      <BrowserRouter>
+          <GlobalStyle />
+          <ThemeProvider theme={theme}>
+              <Switch>
+                  <Route path="/" component={HomePage} />
+              </Switch>
+          </ThemeProvider>
+      </BrowserRouter>
   );
 }
 
