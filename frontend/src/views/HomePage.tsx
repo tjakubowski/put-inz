@@ -1,12 +1,12 @@
-import React from 'react';
-import PageTemplate from '../templates/PageTemplate';
+import React, {useState} from 'react';
+import DefaultLayout from '../layouts/DefaultLayout';
 
-const HomePage = () => (
-  <PageTemplate>
-    <div>
-        Lorem ipsum
-    </div>
-  </PageTemplate>
-);
+const HomePage = () => {
+    return (
+        <DefaultLayout>
+            Lorem ipsum
+        </DefaultLayout>
+    );
+};
 
 export default HomePage;

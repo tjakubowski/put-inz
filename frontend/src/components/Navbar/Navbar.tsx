@@ -1,30 +1,29 @@
 import React from 'react';
-import styled from 'styled-components';
-import Container from "../Container";
-
-const StyledContainer = styled.nav`
-  padding: 1.6rem 0;
-`
-
-const StyledContent = styled(Container)`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`
+import {Col, Layout, Row} from 'antd';
+import styled from "styled-components";
+const { Header } = Layout;
 
 const StyledLogo = styled.h2`
   margin: 0;
 `
 
-const Navbar: React.FC = ({ children }) => {
-  return (
-    <StyledContainer>
-      <StyledContent>
-        <StyledLogo>Logo</StyledLogo>
-      </StyledContent>
-    </StyledContainer>
-  );
+const StyledHeader = styled(Header)`
+  background-color: white;
+`
+
+const Navbar: React.FC = ({children}) => {
+    return (
+        <StyledHeader>
+            <Row justify="space-between">
+                <Col>
+                    <StyledLogo>Logo</StyledLogo>
+                </Col>
+                <Col>
+                    { children }
+                </Col>
+            </Row>
+        </StyledHeader>
+    );
 };
 
 export default Navbar;

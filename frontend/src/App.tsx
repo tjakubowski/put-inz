@@ -4,6 +4,7 @@ import HomePage from './views/HomePage';
 import GlobalStyle from "./theme/GlobalStyle";
 import {ThemeProvider} from "styled-components";
 import {theme} from "./theme/theme";
+import 'antd/dist/antd.css';
 
 const App = () => {
   return (
