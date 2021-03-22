@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import ArrayField
 import uuid
 
+
 class Role(models.Model):
     """Roles entries"""
 
@@ -23,27 +24,20 @@ class Role(models.Model):
 
 
 class User(AbstractUser):
-    is_clinic = models.BooleanField(default=False)
-    is_doctor = models.BooleanField(default=False)
-    is_patient = models.BooleanField(default=False)
-
-    role = models.OneToOneField(Role, blank=False, default=Role.PATIENT)
+    role = models.OneToOneField(Role, blank=False, on_delete=models.CASCADE, default=Role.PATIENT)
     email = models.EmailField(max_length=30, blank=False)
     password = models.CharField(max_length=35, blank=False)
-    userPublicId = models.UUIDField(max_length=50, auto_created=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.role}  Mail:{self.email}, Created at:{self.created_at}'
 
 
-# class Clinic(models.Model):
-
-#     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-#     name = clinic1
-#     address = Poznan Hetmanska
-#     phone_number = 123456789
-
+class Patient(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    first_name = models.CharField(max_length=30, blank=False)
+    last_name = models.CharField(max_length=50, blank=False)
+    ssn = models.CharField(max_length=11, blank=False)
 
 
 class Appointment(models.Model):
