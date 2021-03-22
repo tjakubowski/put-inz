@@ -1,16 +1,11 @@
 FROM node:14-slim
 
-WORKDIR /usr/frontend
+# Create and define the node_modules's cache directory.
+WORKDIR /usr/src/cache
 
-ENV PATH /usr/frontend/node_modules/.bin:$PATH
-
-COPY ./package.json ./
-COPY ./yarn.lock ./
-
+# Install the application's dependencies into the node_modules's cache directory.
+COPY package.json ./
 RUN yarn install
 
-COPY . .
-
-EXPOSE 3000
-
-CMD [ "yarn", "start" ]
+# Create and define the application's working directory.
+WORKDIR /usr/src/app

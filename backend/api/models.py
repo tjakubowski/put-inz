@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import ArrayField
 import uuid
 
@@ -21,7 +22,7 @@ class Role(models.Model):
         return self.get_id_display()
 
 
-class User(models.Model):
+class User(AbstractUser):
     is_clinic = models.BooleanField(default=False)
     is_doctor = models.BooleanField(default=False)
     is_patient = models.BooleanField(default=False)
@@ -42,7 +43,6 @@ class User(models.Model):
 #     name = clinic1
 #     address = Poznan Hetmanska
 #     phone_number = 123456789
-
 
 
 
