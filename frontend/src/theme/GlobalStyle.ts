@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
@@ -16,7 +16,6 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     font-size: 1.6rem;
     font-family: "Open Sans", sans-serif;
-    overflow: hidden;
   }
 `;
 
