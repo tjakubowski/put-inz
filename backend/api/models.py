@@ -3,9 +3,6 @@ from django.contrib.postgres.fields import ArrayField
 import uuid
 
 
-
-
-
 class Appointment(models.Model):
     doctorId = models.IntegerField()
     userId = models.IntegerField(blank=True)
