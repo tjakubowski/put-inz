@@ -1,32 +1,32 @@
-import {ColProps, ColumnSize} from "./Col";
-import styled, {css} from "styled-components";
+import { ColProps, ColumnSize } from './Col';
+import styled, { css } from 'styled-components';
 
 const getSizePercentage = (size: ColumnSize) => {
-    return `${(size / 12) * 100}%`;
-}
+  return `${(size / 12) * 100}%`;
+};
 
 const getColumnCss = (width: ColumnSize) => {
-    const sizePercentage = getSizePercentage(width);
+  const sizePercentage = getSizePercentage(width);
 
-    return css`
+  return css`
     flex: 0 0 ${sizePercentage};
     max-width: ${sizePercentage};
-  `
-}
+  `;
+};
 
 const getOffsetCss = (offset: ColumnSize) => {
-    const offsetPercentage = getSizePercentage(offset);
+  const offsetPercentage = getSizePercentage(offset);
 
-    return css`
+  return css`
     margin-left: ${offsetPercentage};
-  `
-}
+  `;
+};
 
 const getOrderCss = (order: ColumnSize) => {
-    return css`
+  return css`
     order: ${order} !important;
-  `
-}
+  `;
+};
 
 export const StyledContainer = styled.div<ColProps>`
   flex-basis: 0;

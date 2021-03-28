@@ -1,42 +1,48 @@
-import styled from "styled-components";
-import {RowProps} from "./Row";
+import styled, { css } from 'styled-components';
+import { RowProps } from './Row';
+
+const createRowCss = (
+  alignContent?: string,
+  align?: string,
+  justify?: string,
+) => {
+  return css`
+    align-content: ${alignContent};
+    align-items: ${align};
+    justify-content: ${justify};
+  `;
+};
 
 export const StyledContainer = styled.div<RowProps>`
   display: flex;
   flex-wrap: wrap;
   flex: 1 1 auto;
-  
-  align-content: ${({ alignContent }) => alignContent};
-  align-items: ${({ align }) => align};
-  justify-content: ${({ justify }) => justify};
+
+  ${({ alignContent, align, justify }) =>
+    createRowCss(alignContent, align, justify)}
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.sm}) {
-    align-content: ${({ alignContentSM }) => alignContentSM};
-    align-items: ${({ alignSM }) => alignSM};
-    justify-content: ${({ justifySM }) => justifySM};
+    ${({ alignContentSM, alignSM, justifySM }) =>
+      createRowCss(alignContentSM, alignSM, justifySM)}
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}) {
-    align-content: ${({ alignContentMD }) => alignContentMD};
-    align-items: ${({ alignMD }) => alignMD};
-    justify-content: ${({ justifyMD }) => justifyMD};
+    ${({ alignContentMD, alignMD, justifyMD }) =>
+      createRowCss(alignContentMD, alignMD, justifyMD)}
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    align-content: ${({ alignContentLG }) => alignContentLG};
-    align-items: ${({ alignLG }) => alignLG};
-    justify-content: ${({ justifyLG }) => justifyLG};
+    ${({ alignContentLG, alignLG, justifyLG }) =>
+      createRowCss(alignContentLG, alignLG, justifyLG)}
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.xl}) {
-    align-content: ${({ alignContentXL }) => alignContentXL};
-    align-items: ${({ alignXL }) => alignXL};
-    justify-content: ${({ justifyXL }) => justifyXL};
+    ${({ alignContentXL, alignXL, justifyXL }) =>
+      createRowCss(alignContentXL, alignXL, justifyXL)}
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.xxl}) {
-    align-content: ${({ alignContentXXL }) => alignContentXXL};
-    align-items: ${({ alignXXL }) => alignXXL};
-    justify-content: ${({ justifyXXL }) => justifyXXL};
+    ${({ alignContentXXL, alignXXL, justifyXXL }) =>
+      createRowCss(alignContentXXL, alignXXL, justifyXXL)}
   }
 `;

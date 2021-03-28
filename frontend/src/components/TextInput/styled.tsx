@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const StyledLabel = styled.label`
   display: block;
@@ -8,8 +8,10 @@ export const StyledSpan = styled.span`
   display: block;
 `;
 
-interface InputProps {
+export interface InputProps {
   block?: boolean;
+  rounded?: boolean;
+  outlined?: boolean;
 }
 
 export const StyledInput = styled.input<InputProps>`
@@ -22,5 +24,19 @@ export const StyledInput = styled.input<InputProps>`
     css`
       display: block;
       width: 100%;
+    `}
+
+  ${({ rounded }) =>
+    rounded &&
+    css`
+      border-radius: 100px;
+    `}
+
+  ${({ outlined }) =>
+    outlined &&
+    css`
+      background-color: transparent;
+      border-width: 1px;
+      border-style: solid;
     `}
 `;

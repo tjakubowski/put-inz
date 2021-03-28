@@ -1,12 +1,12 @@
 import React from 'react';
-import Navbar from "../components/Navbar";
+import Navbar from '../components/Navbar';
 
 const DefaultLayout: React.FC = ({ children }) => {
   return (
-      <>
-          <Navbar />
-          { children }
-      </>
+    <>
+      <Navbar />
+      {children}
+    </>
   );
 };
 

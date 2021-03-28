@@ -1,13 +1,12 @@
-import React from "react";
-import { StyledInput, StyledLabel, StyledSpan } from "./styled";
+import React from 'react';
+import { InputProps, StyledInput, StyledLabel, StyledSpan } from './styled';
 
-interface Props {
+interface Props extends InputProps {
   name: string;
-  type?: "text" | "email" | "password" | "number" | "tel";
+  type?: 'text' | 'email' | 'password' | 'number' | 'tel';
   label?: string;
   placeholder?: string;
   required?: boolean;
-  block?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string;
 }
@@ -39,7 +38,7 @@ const TextInput: React.FC<Props> = ({
 };
 
 TextInput.defaultProps = {
-  type: "text",
+  type: 'text',
   required: false,
   block: false,
 };
