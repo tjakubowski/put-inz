@@ -20,7 +20,7 @@ export interface ButtonProps {
 export const StyledButton = styled.button<ButtonProps>`
   background-color: ${({ color }) => color};
   border-radius: 0.4rem;
-  padding: 0.8rem 1.6rem;
+  padding: 1.2rem 1.6rem;
   border: none;
   cursor: pointer;
   font-weight: 700;
@@ -41,21 +41,21 @@ export const StyledButton = styled.button<ButtonProps>`
   ${({ sm, theme }) =>
     sm &&
     css`
-      padding: 0.6rem 1.2rem;
+      padding: 1rem 1.4rem;
       font-size: ${theme.fontSize.sm};
     `}
 
   ${({ lg, theme }) =>
     lg &&
     css`
-      padding: 1rem 1.8rem;
+      padding: 1.4rem 1.8rem;
       font-size: ${theme.fontSize.lg};
     `}
 
   ${({ xl, theme }) =>
     xl &&
     css`
-      padding: 1.2rem 2rem;
+      padding: 1.6rem 2rem;
       font-size: ${theme.fontSize.xl};
     `}
 

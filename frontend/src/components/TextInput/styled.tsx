@@ -6,6 +6,7 @@ export const StyledLabel = styled.label`
 
 export const StyledSpan = styled.span`
   display: block;
+  padding: 4px 0;
 `;
 
 export interface InputProps {
@@ -15,9 +16,15 @@ export interface InputProps {
 }
 
 export const StyledInput = styled.input<InputProps>`
-  padding: 8px 16px;
-  border: 1px solid #2e2e2e;
+  padding: 12px 16px;
+  border: 1px solid ${({ theme }) => theme.colors.default};
   border-radius: 4px;
+  position: relative;
+
+  &:active,
+  &:focus {
+    outline-color: ${({ theme }) => theme.colors.primary};
+  }
 
   ${({ block }) =>
     block &&

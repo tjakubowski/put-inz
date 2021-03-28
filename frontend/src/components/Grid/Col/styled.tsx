@@ -32,6 +32,7 @@ export const StyledContainer = styled.div<ColProps>`
   flex-basis: 0;
   flex-grow: 1;
   max-width: 100%;
+  padding: 12px;
 
   ${({ cols }) => cols && getColumnCss(cols)}
   ${({ offset }) => offset && getOffsetCss(offset)}
