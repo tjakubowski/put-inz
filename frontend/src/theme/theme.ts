@@ -11,7 +11,7 @@ export const theme = {
   colors: {
     primary: '#0D53FC',
     secondary: '#2e2e2e',
-    default: '#b7b7b7',
+    default: '#d0d0d0',
   },
   fontSize: {
     sm: '1.2rem',
