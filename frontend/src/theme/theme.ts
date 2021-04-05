@@ -12,6 +12,7 @@ export const theme = {
     primary: '#0D53FC',
     secondary: '#2e2e2e',
     default: '#d0d0d0',
+    error: '#d72222',
   },
   fontSize: {
     sm: '1.2rem',

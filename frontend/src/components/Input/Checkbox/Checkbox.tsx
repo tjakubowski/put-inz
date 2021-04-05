@@ -6,6 +6,7 @@ import {
   StyledInputContainer,
   StyledLabel,
 } from './styled';
+import Error from '../Error';
 
 interface Props {
   name: string;
@@ -14,6 +15,7 @@ interface Props {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string;
   checked?: boolean;
+  error?: string;
 }
 
 const Checkbox: React.FC<Props> = ({
@@ -22,6 +24,7 @@ const Checkbox: React.FC<Props> = ({
   label,
   onChange,
   checked,
+  error,
 }) => {
   const [isChecked, check] = useState(checked);
   const icon = isChecked ? (
@@ -36,19 +39,22 @@ const Checkbox: React.FC<Props> = ({
   };
 
   return (
-    <StyledLabel>
-      <StyledInputContainer>
-        <StyledInput
-          type="checkbox"
-          name={name}
-          value={value}
-          onChange={handleChange}
-          checked={isChecked}
-        />
-        <StyledIcon checked={isChecked!}>{icon}</StyledIcon>
-      </StyledInputContainer>
-      <span>{label}</span>
-    </StyledLabel>
+    <>
+      <StyledLabel>
+        <StyledInputContainer>
+          <StyledInput
+            type="checkbox"
+            name={name}
+            value={value}
+            onChange={handleChange}
+            checked={isChecked}
+          />
+          <StyledIcon checked={isChecked!}>{icon}</StyledIcon>
+        </StyledInputContainer>
+        <span>{label}</span>
+      </StyledLabel>
+      <Error>{error}</Error>
+    </>
   );
 };
 

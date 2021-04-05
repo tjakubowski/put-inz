@@ -1,5 +1,6 @@
 import React from 'react';
 import { InputProps, StyledInput, StyledLabel, StyledSpan } from './styled';
+import Error from '../Error/Error';
 
 interface Props extends InputProps {
   name: string;
@@ -9,6 +10,7 @@ interface Props extends InputProps {
   required?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string;
+  error?: string;
 }
 
 const TextInput: React.FC<Props> = ({
@@ -20,20 +22,24 @@ const TextInput: React.FC<Props> = ({
   block,
   onChange,
   value,
+  error,
 }) => {
   return (
-    <StyledLabel>
-      {label && <StyledSpan>{label}</StyledSpan>}
-      <StyledInput
-        name={name}
-        placeholder={placeholder}
-        type={type}
-        required={required}
-        onChange={onChange}
-        value={value}
-        block={block}
-      />
-    </StyledLabel>
+    <>
+      <StyledLabel>
+        {label && <StyledSpan>{label}</StyledSpan>}
+        <StyledInput
+          name={name}
+          placeholder={placeholder}
+          type={type}
+          required={required}
+          onChange={onChange}
+          value={value}
+          block={block}
+        />
+      </StyledLabel>
+      <Error>{error}</Error>
+    </>
   );
 };
 
