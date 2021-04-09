@@ -1,12 +1,16 @@
-import React, {useState} from 'react';
+import React from 'react';
 import DefaultLayout from '../layouts/DefaultLayout';
+import { Container } from '../components/Grid';
+import ReservationForm from '../components/ReservationForm';
 
 const HomePage = () => {
-    return (
-        <DefaultLayout>
-            Lorem ipsum
-        </DefaultLayout>
-    );
+  return (
+    <DefaultLayout>
+      <Container>
+        <ReservationForm />
+      </Container>
+    </DefaultLayout>
+  );
 };
 
 export default HomePage;
