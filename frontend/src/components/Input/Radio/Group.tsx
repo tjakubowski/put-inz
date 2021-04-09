@@ -5,14 +5,14 @@ import Error from '../Error';
 
 const StyledRadioGroupContainer = styled.div``;
 
-export interface RadioGroupProps {
+export interface IRadioGroupProps {
   error?: string;
-  name: string;
+  name?: string;
   defaultValue: string | number;
   onChange?(value: string | number): any;
 }
 
-const Group: React.FC<RadioGroupProps> = ({
+const Group: React.FC<IRadioGroupProps> = ({
   children,
   error,
   name,

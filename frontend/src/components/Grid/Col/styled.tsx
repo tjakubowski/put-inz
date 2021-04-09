@@ -1,4 +1,4 @@
-import { ColProps, ColumnSize } from './Col';
+import { IColProps, ColumnSize } from './Col';
 import styled, { css } from 'styled-components';
 
 const getSizePercentage = (size: ColumnSize) => {
@@ -28,7 +28,7 @@ const getOrderCss = (order: ColumnSize) => {
   `;
 };
 
-export const StyledContainer = styled.div<ColProps>`
+export const StyledContainer = styled.div<IColProps>`
   flex-basis: 0;
   flex-grow: 1;
   max-width: 100%;

@@ -7,18 +7,21 @@ import {
   StyledInputContainer,
   StyledLabel,
 } from './styled';
-import Group, { RadioGroupProps } from './Group';
+import Group, { IRadioGroupProps } from './Group';
 
-interface Props {
+interface IRadioProps {
   label?: string;
   value: string;
 }
 
 interface RadioGroupComposition {
-  Group: React.FC<RadioGroupProps>;
+  Group: React.FC<IRadioGroupProps>;
 }
 
-const Radio: React.FC<Props> & RadioGroupComposition = ({ value, label }) => {
+const Radio: React.FC<IRadioProps> & RadioGroupComposition = ({
+  value,
+  label,
+}) => {
   const { radioValue, handleOnChange, name } = useRadioContext();
   const isChecked = value === radioValue;
 

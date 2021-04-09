@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyledErrorBlock, StyledErrorInline } from './styled';
 
-interface Props {
+interface IErrorProps {
   inline?: boolean;
 }
 
-const Error: React.FC<Props> = ({ children, inline }) => {
+const Error: React.FC<IErrorProps> = ({ children, inline }) => {
   return inline ? (
     <StyledErrorInline>{children}</StyledErrorInline>
   ) : (

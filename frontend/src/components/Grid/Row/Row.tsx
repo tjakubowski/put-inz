@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyledContainer } from './styled';
 
-export interface RowProps {
+export interface IRowProps {
   alignContent?: string;
   alignContentSM?: string;
   alignContentMD?: string;
@@ -22,7 +22,7 @@ export interface RowProps {
   justifyXXL?: string;
 }
 
-const Row: React.FC<RowProps> = ({ children, ...props }) => {
+const Row: React.FC<IRowProps> = ({ children, ...props }) => {
   return <StyledContainer {...props}>{children}</StyledContainer>;
 };
 

@@ -22,11 +22,11 @@ export const StyledInput = styled.input`
   cursor: pointer;
 `;
 
-interface IconProps {
+interface IStyledIconProps {
   checked: boolean;
 }
 
-export const StyledIcon = styled.span<IconProps>`
+export const StyledIcon = styled.span<IStyledIconProps>`
   width: 100%;
   height: 100%;
   color: ${({ theme, checked }) =>

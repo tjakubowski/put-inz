@@ -8,7 +8,7 @@ import {
 } from './styled';
 import Error from '../Error';
 
-interface Props {
+interface ICheckboxProps {
   name: string;
   label?: string;
   required?: boolean;
@@ -18,7 +18,7 @@ interface Props {
   error?: string;
 }
 
-const Checkbox: React.FC<Props> = ({
+const Checkbox: React.FC<ICheckboxProps> = ({
   value,
   name,
   label,

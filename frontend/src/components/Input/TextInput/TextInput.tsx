@@ -2,18 +2,19 @@ import React from 'react';
 import { InputProps, StyledInput, StyledLabel, StyledSpan } from './styled';
 import Error from '../Error/Error';
 
-interface Props extends InputProps {
-  name: string;
+interface ITextInputProps extends InputProps {
+  name?: string;
   type?: 'text' | 'email' | 'password' | 'number' | 'tel';
   label?: string;
   placeholder?: string;
   required?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   value?: string;
   error?: string;
 }
 
-const TextInput: React.FC<Props> = ({
+const TextInput: React.FC<ITextInputProps> = ({
   name,
   type,
   label,
@@ -21,6 +22,7 @@ const TextInput: React.FC<Props> = ({
   required,
   block,
   onChange,
+  onBlur,
   value,
   error,
 }) => {
@@ -34,6 +36,7 @@ const TextInput: React.FC<Props> = ({
           type={type}
           required={required}
           onChange={onChange}
+          onBlur={onBlur}
           value={value}
           block={block}
         />
@@ -47,6 +50,7 @@ TextInput.defaultProps = {
   type: 'text',
   required: false,
   block: false,
+  value: '',
 };
 
 export default TextInput;

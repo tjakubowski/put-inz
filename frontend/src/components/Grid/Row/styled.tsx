@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { RowProps } from './Row';
+import { IRowProps } from './Row';
 
 const createRowCss = (
   alignContent?: string,
@@ -13,7 +13,7 @@ const createRowCss = (
   `;
 };
 
-export const StyledContainer = styled.div<RowProps>`
+export const StyledContainer = styled.div<IRowProps>`
   display: flex;
   flex-wrap: wrap;
   flex: 1 1 auto;

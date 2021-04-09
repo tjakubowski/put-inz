@@ -3,7 +3,7 @@ import React from 'react';
 interface IRadioContext {
   radioValue: string | number;
   handleOnChange(value: string | number): void;
-  name: string;
+  name?: string;
 }
 
 const RadioContext = React.createContext<IRadioContext | undefined>(undefined);

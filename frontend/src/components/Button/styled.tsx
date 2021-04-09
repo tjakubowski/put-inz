@@ -6,7 +6,7 @@ import {
   meetsContrastGuidelines,
 } from 'polished';
 
-export interface ButtonProps {
+export interface IStyledButtonProps {
   block?: boolean;
   color?: string;
   sm?: boolean;
@@ -17,7 +17,7 @@ export interface ButtonProps {
   rounded?: boolean;
 }
 
-export const StyledButton = styled.button<ButtonProps>`
+export const StyledButton = styled.button<IStyledButtonProps>`
   background-color: ${({ color }) => color};
   border-radius: 0.4rem;
   padding: 1.2rem 1.6rem;
@@ -119,12 +119,12 @@ export const StyledText = styled.span`
   justify-content: center;
 `;
 
-interface IconProps {
+interface IStyledIconProps {
   left?: boolean;
   right?: boolean;
 }
 
-export const StyledIcon = styled.span<IconProps>`
+export const StyledIcon = styled.span<IStyledIconProps>`
   margin-right: ${({ left }) => left && '8px'};
   margin-left: ${({ right }) => right && '8px'};
 

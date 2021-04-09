@@ -2,9 +2,9 @@ import React from 'react';
 import { Col, Container, Row } from '../Grid';
 import { StyledContainer, StyledLogo } from './styled';
 
-interface Props {}
+interface INavbarProps {}
 
-const Navbar: React.FC<Props> = ({ children }) => {
+const Navbar: React.FC<INavbarProps> = ({ children }) => {
   return (
     <StyledContainer>
       <Container>
