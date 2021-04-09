@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import RegisterPatientView
-from .views import RegisterStaffView
+from .views import PatientCreateView, StaffCreateView
 
 urlpatterns = [
-    path('patient_signup/', RegisterPatientView, name='PatientSignUp'),
-    path('staff_signup/', RegisterStaffView, name='StaffSignUp')
+    path('patient_registration/', PatientCreateView.as_view(), name="PatientCreation"),
+    path('staff_registration/', StaffCreateView.as_view(), name="StaffCreation"),
+    
 ]
