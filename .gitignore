@@ -1,5 +1,2 @@
 .idea
 venv
-backend/.idea
-backend/users/__pycache__
-backend/api/__pycache__
