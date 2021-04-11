@@ -4,6 +4,7 @@ import {
   readableColor,
   darken,
   meetsContrastGuidelines,
+  lighten,
 } from 'polished';
 
 export interface IStyledButtonProps {
@@ -15,6 +16,7 @@ export interface IStyledButtonProps {
   text?: boolean;
   outlined?: boolean;
   rounded?: boolean;
+  disabled?: boolean;
 }
 
 export const StyledButton = styled.button<IStyledButtonProps>`
@@ -29,6 +31,15 @@ export const StyledButton = styled.button<IStyledButtonProps>`
   outline: none;
   text-align: center;
   font-size: ${({ theme }) => theme.fontSize.md};
+
+  &:disabled {
+    background-color: ${({ theme }) =>
+      lighten(0.1, theme.colors.default)} !important;
+    color: ${({ theme }) => darken(0.1, theme.colors.default)} !important;
+    border-color: ${({ theme }) =>
+      darken(0.1, theme.colors.default)} !important;
+    cursor: auto;
+  }
 
   &:hover {
     background-color: ${({ color }) => color && darken(0.05, color)};

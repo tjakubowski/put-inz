@@ -18,10 +18,10 @@ const Button: React.FC<IButtonProps> = ({
   onClick,
   prepend,
   append,
-  ...props
+  ...styledProps
 }) => {
   return (
-    <StyledButton {...props} onClick={onClick}>
+    <StyledButton {...styledProps} onClick={onClick}>
       <StyledText>
         {prepend && <StyledIcon left>{prepend}</StyledIcon>}
         {children}
@@ -34,6 +34,7 @@ const Button: React.FC<IButtonProps> = ({
 Button.defaultProps = {
   type: 'button',
   color: '#f5f5f5',
+  disabled: false,
 };
 
 export default Button;
