@@ -20,6 +20,13 @@ export const theme = {
     lg: '1.8rem',
     xl: '2.2rem',
   },
+  button: {
+    borderRadius: '4px',
+  },
+  input: {
+    fontSize: '1.4rem',
+    borderRadius: '4px',
+  },
 };
 
 export default theme;

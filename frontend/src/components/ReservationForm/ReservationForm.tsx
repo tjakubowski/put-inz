@@ -3,6 +3,7 @@ import { ThemeContext } from 'styled-components';
 import { useForm, Controller } from 'react-hook-form';
 
 import { Col, Row } from '../Grid';
+import Select from '../Input/Select';
 import TextInput from '../Input/TextInput';
 import Button from '../Button';
 import Checkbox from '../Input/Checkbox';
@@ -15,6 +16,7 @@ interface IFormData {
   pesel: string;
   radiotest: string;
   createAccount: string;
+  select: any;
 }
 
 const ReservationForm: React.FC = () => {
@@ -24,6 +26,18 @@ const ReservationForm: React.FC = () => {
     control,
     formState: { errors },
   } = useForm<IFormData>();
+
+  const autocomplete = [
+    { label: 'Lorem', value: '1' },
+    { label: 'ipsum', value: '2' },
+    { label: 'Dolor', value: '3' },
+    { label: 'sit', value: '4' },
+    { label: 'amet', value: '5' },
+    { label: 'elit', value: '6' },
+    { label: 'Deserunt', value: '7' },
+    { label: 'consectetur', value: '8' },
+    { label: 'adipisicing', value: '9' },
+  ];
 
   const onSubmit = (data: IFormData) => console.log(data);
 
@@ -129,6 +143,23 @@ const ReservationForm: React.FC = () => {
                 <Radio label="Test radio 2" value="two" />
                 <Radio label="Test radio 3" value="three" />
               </Radio.Group>
+            )}
+          />
+        </Col>
+        <Col cols={12}>
+          <Controller
+            control={control}
+            name="select"
+            rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Select
+                label="Lekarz"
+                options={autocomplete}
+                onChange={onChange}
+                value={value}
+                onBlur={onBlur}
+                error={errors.select?.message}
+              />
             )}
           />
         </Col>
