@@ -23,7 +23,7 @@ export const StyledButton = styled.button<IStyledButtonProps>`
   background-color: ${({ color }) => color};
   border-radius: ${({ theme }) => theme.button.borderRadius};
   padding: 1.2rem 1.6rem;
-  border: none;
+  border-width: 1px;
   cursor: pointer;
   font-weight: 700;
   transition: background-color 0.2s;
@@ -39,6 +39,12 @@ export const StyledButton = styled.button<IStyledButtonProps>`
     border-color: ${({ theme }) =>
       darken(0.1, theme.colors.default)} !important;
     cursor: auto;
+
+    ${({ text }) =>
+      text &&
+      css`
+        background-color: transparent !important;
+      `}
   }
 
   &:hover {
@@ -84,7 +90,6 @@ export const StyledButton = styled.button<IStyledButtonProps>`
       outlined &&
       css`
         background-color: transparent;
-        border-width: 1px;
         border-style: solid;
         border-color: ${color};
         color: ${isColorVisible ? color : color && darken(0.5, color)};
