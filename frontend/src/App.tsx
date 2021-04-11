@@ -11,7 +11,7 @@ const App = () => {
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <Switch>
-          <Route path="/" component={HomePage} />
+          <Route exact path="/" component={HomePage} />
         </Switch>
       </ThemeProvider>
     </BrowserRouter>
