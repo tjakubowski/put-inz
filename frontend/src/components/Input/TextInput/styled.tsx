@@ -16,6 +16,7 @@ export interface InputProps {
 }
 
 export const StyledInput = styled.input<InputProps>`
+  font-size: ${({ theme }) => theme.input.fontSize};
   padding: 12px 16px;
   border: 1px solid ${({ theme }) => theme.colors.default};
   border-radius: 4px;

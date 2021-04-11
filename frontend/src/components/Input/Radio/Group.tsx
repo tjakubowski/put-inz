@@ -1,9 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import RadioContext from './RadioContext';
 import Error from '../Error';
-
-const StyledRadioGroupContainer = styled.div``;
 
 export interface IRadioGroupProps {
   error?: string;
@@ -32,9 +29,7 @@ const Group: React.FC<IRadioGroupProps> = ({
 
   return (
     <RadioContext.Provider value={{ radioValue: value, handleOnChange, name }}>
-      <StyledRadioGroupContainer role="radiogroup">
-        {children}
-      </StyledRadioGroupContainer>
+      <div role="radiogroup">{children}</div>
       <Error>{error}</Error>
     </RadioContext.Provider>
   );

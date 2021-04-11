@@ -19,7 +19,7 @@ export interface IStyledButtonProps {
 
 export const StyledButton = styled.button<IStyledButtonProps>`
   background-color: ${({ color }) => color};
-  border-radius: 0.4rem;
+  border-radius: ${({ theme }) => theme.button.borderRadius};
   padding: 1.2rem 1.6rem;
   border: none;
   cursor: pointer;
