@@ -8,6 +8,10 @@ import TextInput from '../Input/TextInput';
 import Button from '../Button';
 import Checkbox from '../Input/Checkbox';
 import Radio from '../Input/Radio';
+import DateCarousel from '../DateCarousel';
+import dayjs, { Dayjs } from 'dayjs';
+import { useBreakpoint } from 'styled-breakpoints/react-styled';
+import { up } from 'styled-breakpoints';
 
 interface IFormData {
   firstname: string;
@@ -16,11 +20,13 @@ interface IFormData {
   pesel: string;
   radiotest: string;
   createAccount: string;
-  select: any;
+  doctor: any;
+  date: Dayjs;
 }
 
 const ReservationForm: React.FC = () => {
   const theme = useContext(ThemeContext);
+  const isLargeDesktop = useBreakpoint(up('lg'));
   const {
     handleSubmit,
     control,
@@ -37,6 +43,24 @@ const ReservationForm: React.FC = () => {
     { label: 'Deserunt', value: '7' },
     { label: 'consectetur', value: '8' },
     { label: 'adipisicing', value: '9' },
+  ];
+
+  const dates = [
+    dayjs().hour(12).minute(0),
+    dayjs().hour(15).minute(0),
+    dayjs().hour(14).minute(0),
+    dayjs().hour(17).minute(0),
+    dayjs().hour(18).minute(0),
+
+    dayjs().add(1, 'days').hour(9).minute(0),
+    dayjs().add(1, 'days').hour(10).minute(0),
+    dayjs().add(1, 'days').hour(12).minute(0),
+    dayjs().add(1, 'days').hour(17).minute(0),
+
+    dayjs().add(2, 'days').hour(14).minute(0),
+    dayjs().add(2, 'days').hour(15).minute(0),
+    dayjs().add(2, 'days').hour(16).minute(0),
+    dayjs().add(2, 'days').hour(17).minute(0),
   ];
 
   const onSubmit = (data: IFormData) => console.log(data);
@@ -149,16 +173,35 @@ const ReservationForm: React.FC = () => {
         <Col cols={12}>
           <Controller
             control={control}
-            name="select"
+            name="date"
+            rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
+            render={({ field: { onChange, value } }) => {
+              const columns = isLargeDesktop ? 4 : 3;
+              return (
+                <DateCarousel
+                  dates={dates}
+                  onSelect={onChange}
+                  selectedDate={value}
+                  columns={columns}
+                />
+              );
+            }}
+          />
+        </Col>
+        <Col cols={12}>
+          <Controller
+            control={control}
+            name="doctor"
             rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
             render={({ field: { onChange, onBlur, value } }) => (
               <Select
+                placeholder="Wyszukaj lekarza"
                 label="Lekarz"
                 options={autocomplete}
                 onChange={onChange}
                 value={value}
                 onBlur={onBlur}
-                error={errors.select?.message}
+                error={errors.doctor?.message}
               />
             )}
           />
