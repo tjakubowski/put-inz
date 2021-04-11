@@ -35,8 +35,4 @@ const Group: React.FC<IRadioGroupProps> = ({
   );
 };
 
-Group.defaultProps = {
-  defaultValue: '',
-};
-
 export default Group;

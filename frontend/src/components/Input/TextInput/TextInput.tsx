@@ -15,15 +15,15 @@ interface ITextInputProps extends InputProps {
 }
 
 const TextInput: React.FC<ITextInputProps> = ({
+  type = 'text',
+  required = false,
+  block = false,
+  value = '',
   name,
-  type,
   label,
   placeholder,
-  required,
-  block,
   onChange,
   onBlur,
-  value,
   error,
 }) => {
   return (
@@ -44,13 +44,6 @@ const TextInput: React.FC<ITextInputProps> = ({
       <Error>{error}</Error>
     </>
   );
-};
-
-TextInput.defaultProps = {
-  type: 'text',
-  required: false,
-  block: false,
-  value: '',
 };
 
 export default TextInput;
