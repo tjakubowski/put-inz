@@ -13,6 +13,10 @@ interface IFormData {
   pesel: string;
   radiotest: string;
   createAccount: string;
+  address: string;
+  zipcode: string;
+  password: string;
+  passwordCheck: string;
 }
 
 const RegisterForm: React.FC = () => {
@@ -103,7 +107,7 @@ const RegisterForm: React.FC = () => {
         <Col cols={9}>
           <Controller
               control={control}
-              name="pesel"
+              name="address"
               rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
               render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
@@ -121,7 +125,7 @@ const RegisterForm: React.FC = () => {
         <Col cols={3}>
           <Controller
               control={control}
-              name="pesel"
+              name="zipcode"
               rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
               render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
@@ -139,7 +143,7 @@ const RegisterForm: React.FC = () => {
         <Col cols={6}>
           <Controller
               control={control}
-              name="pesel"
+              name="password"
               rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
               render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
@@ -157,7 +161,7 @@ const RegisterForm: React.FC = () => {
         <Col cols={6}>
           <Controller
               control={control}
-              name="pesel"
+              name="passwordCheck"
               rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
               render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput

@@ -13,6 +13,7 @@ interface IFormData {
   pesel: string;
   radiotest: string;
   createAccount: string;
+  password: string;
 }
 
 const LoginForm: React.FC = () => {
@@ -49,7 +50,7 @@ const LoginForm: React.FC = () => {
         <Col cols={12}>
           <Controller
             control={control}
-            name="pesel"
+            name="password"
             rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
