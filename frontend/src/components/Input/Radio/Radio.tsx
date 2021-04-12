@@ -1,5 +1,8 @@
 import React from 'react';
-import { MdRadioButtonChecked, MdRadioButtonUnchecked } from 'react-icons/all';
+import {
+  MdRadioButtonChecked as CheckedIcon,
+  MdRadioButtonUnchecked as UncheckedIcon,
+} from 'react-icons/all';
 import useRadioContext from './useRadioContext';
 import {
   StyledIcon,
@@ -26,9 +29,9 @@ const Radio: React.FC<IRadioProps> & RadioGroupComposition = ({
   const isChecked = value === radioValue;
 
   const icon = isChecked ? (
-    <MdRadioButtonChecked size={24} />
+    <CheckedIcon size={24} />
   ) : (
-    <MdRadioButtonUnchecked size={24} />
+    <UncheckedIcon size={24} />
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
