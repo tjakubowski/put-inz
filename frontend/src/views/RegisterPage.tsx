@@ -1,16 +1,16 @@
 import React from 'react';
 import DefaultLayout from '../layouts/DefaultLayout';
 import { Container } from '../components/Grid';
-import ReservationForm from "../components/ReservationForm";
+import RegisterForm from "../components/RegisterForm";
 
-const HomePage = () => {
+const RegisterPage = () => {
   return (
     <DefaultLayout>
       <Container>
-        <ReservationForm />
+        <RegisterForm />
       </Container>
     </DefaultLayout>
   );
 };
 
-export default HomePage;
+export default RegisterPage;
