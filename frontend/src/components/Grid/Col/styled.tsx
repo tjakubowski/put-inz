@@ -1,5 +1,6 @@
 import { IColProps, ColumnSize } from './Col';
 import styled, { css } from 'styled-components';
+import { up } from 'styled-breakpoints';
 
 const getSizePercentage = (size: ColumnSize) => {
   return `${(size / 12) * 100}%`;
@@ -38,31 +39,31 @@ export const StyledContainer = styled.div<IColProps>`
   ${({ offset }) => offset && getOffsetCss(offset)}
   ${({ order }) => order && getOrderCss(order)}
 
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.sm}) {
+  ${up('sm')} {
     ${({ sm }) => sm && getColumnCss(sm)}
     ${({ offsetSM }) => offsetSM && getOffsetCss(offsetSM)}
     ${({ orderSM }) => orderSM && getOrderCss(orderSM)}
   }
 
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}) {
+  ${up('md')} {
     ${({ md }) => md && getColumnCss(md)}
     ${({ offsetMD }) => offsetMD && getOffsetCss(offsetMD)}
     ${({ orderMD }) => orderMD && getOrderCss(orderMD)}
   }
 
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+  ${up('lg')} {
     ${({ lg }) => lg && getColumnCss(lg)}
     ${({ offsetLG }) => offsetLG && getOffsetCss(offsetLG)}
     ${({ orderLG }) => orderLG && getOrderCss(orderLG)}
   }
 
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.xl}) {
+  ${up('xl')} {
     ${({ xl }) => xl && getColumnCss(xl)}
     ${({ offsetXL }) => offsetXL && getOffsetCss(offsetXL)}
     ${({ orderXL }) => orderXL && getOrderCss(orderXL)}
   }
 
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.xxl}) {
+  ${up('xxl')} {
     ${({ xxl }) => xxl && getColumnCss(xxl)}
     ${({ offsetXXL }) => offsetXXL && getOffsetCss(offsetXXL)}
     ${({ orderXXL }) => orderXXL && getOrderCss(orderXXL)}

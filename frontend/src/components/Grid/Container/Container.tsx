@@ -1,27 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
+import { up } from 'styled-breakpoints';
 
 const StyledContainer = styled.div`
   margin: 0 auto;
   padding: 12px;
 
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.sm}) {
+  ${up('sm')} {
     max-width: 540px;
   }
 
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}) {
+  ${up('md')} {
     max-width: 720px;
   }
 
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+  ${up('lg')} {
     max-width: 960px;
   }
 
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.xl}) {
+  ${up('xl')} {
     max-width: 1140px;
   }
 
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.xxl}) {
+  ${up('xxl')} {
     max-width: 1320px;
   }
 `;

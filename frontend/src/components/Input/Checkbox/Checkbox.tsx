@@ -11,7 +11,6 @@ import Error from '../Error';
 interface ICheckboxProps {
   name: string;
   label?: string;
-  required?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string;
   checked?: boolean;
@@ -23,8 +22,8 @@ const Checkbox: React.FC<ICheckboxProps> = ({
   name,
   label,
   onChange,
-  checked,
   error,
+  checked = false,
 }) => {
   const [isChecked, check] = useState(checked);
   const icon = isChecked ? (
@@ -56,11 +55,6 @@ const Checkbox: React.FC<ICheckboxProps> = ({
       <Error>{error}</Error>
     </>
   );
-};
-
-Checkbox.defaultProps = {
-  required: false,
-  checked: false,
 };
 
 export default Checkbox;

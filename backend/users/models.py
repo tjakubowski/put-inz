@@ -61,6 +61,7 @@ class CustomizedUserManager(BaseUserManager):
         return user
 
 
+# Account model
 class User(AbstractUser):
     username = None
     email = models.EmailField(max_length=30, unique=True, blank=False)
@@ -75,16 +76,22 @@ class User(AbstractUser):
         return f'{self.role}  Mail:{self.email}, Created at:{self.created_at}'
 
 
+# Model of patient attending the clinic
 class Patient(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=False, primary_key=True)
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
     pesel_number = models.CharField(max_length=11, blank=False, unique=True, default='')
     phone_number = models.CharField(max_length=15, blank=True)
+    patient_appointments = models.ForeignKey('api.Appointment', related_name='patients_appointments_set',
+                                             blank=True, on_delete=models.CASCADE)
 
 
+# Model of staff working in a clinic
 class Staff(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     first_name = models.CharField(max_length=20, blank=True)
     last_name = models.CharField(max_length=35, blank=True)
     specialization = models.CharField(max_length=40, blank=True)
+    staff_appointments = models.ForeignKey('api.Appointment', related_name='staff_appointments_set',
+                                           blank=True, on_delete=models.CASCADE)
