@@ -1,16 +1,16 @@
 import React from 'react';
 import DefaultLayout from '../layouts/DefaultLayout';
 import { Container } from '../components/Grid';
-import ReservationForm from "../components/ReservationForm";
+import LoginForm from "../components/LoginForm";
 
-const HomePage = () => {
+const LoginPage = () => {
   return (
     <DefaultLayout>
       <Container>
-        <ReservationForm />
+        <LoginForm />
       </Container>
     </DefaultLayout>
   );
 };
 
-export default HomePage;
+export default LoginPage;
