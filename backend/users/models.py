@@ -10,6 +10,7 @@ class CustomizedUserManager(BaseUserManager):
     Custom user model manager where email is the unique identifiers
     for authentication instead of usernames.
     """
+
     def create_user(self, email, password, **extra_fields):
         """
         Create and save a User with the given email and password.
@@ -61,8 +62,23 @@ class CustomizedUserManager(BaseUserManager):
         return user
 
 
+# Role's model
+class Role(models.Model):
+    RECEPTIONIST = 1
+    DOCTOR = 2
+    PATIENT = 3
+    ROLE_CHOICES = (
+        (RECEPTIONIST, 'receptionist'),
+        (DOCTOR, 'doctor'),
+        (PATIENT, 'patient')
+    )
+
+    id = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, primary_key=True)
+
+
 # Account model
 class User(AbstractUser):
+    role = models.ManyToManyField(Role)
     username = None
     email = models.EmailField(max_length=30, unique=True, blank=False)
     date_joined = models.DateTimeField(default=timezone.now)
@@ -83,7 +99,7 @@ class Patient(models.Model):
     last_name = models.CharField(max_length=50, blank=True)
     pesel_number = models.CharField(max_length=11, blank=False, unique=True, default='')
     phone_number = models.CharField(max_length=15, blank=True)
-    patient_appointments = models.ForeignKey('api.Appointment', related_name='patients_appointments_set',
+    patient_appointments = models.ForeignKey('api.Appointment', related_name='patients_appointments_set', default=1,
                                              blank=True, on_delete=models.CASCADE)
 
 
@@ -93,5 +109,10 @@ class Staff(models.Model):
     first_name = models.CharField(max_length=20, blank=True)
     last_name = models.CharField(max_length=35, blank=True)
     specialization = models.CharField(max_length=40, blank=True)
-    staff_appointments = models.ForeignKey('api.Appointment', related_name='staff_appointments_set',
+    staff_appointments = models.ForeignKey('api.Appointment', related_name='staff_appointments_set', default=1,
                                            blank=True, on_delete=models.CASCADE)
+
+
+class Receptionist(models.Model):
+    first_name = models.CharField(max_length=20, blank=True)
+    last_name = models.CharField(max_length=20, blank=True)
