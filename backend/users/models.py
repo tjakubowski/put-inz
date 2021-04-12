@@ -76,6 +76,20 @@ class Role(models.Model):
     id = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, primary_key=True)
 
 
+# Specialization model
+class Specialization(models.Model):
+    RECEPTIONIST = 1
+    DOCTOR = 2
+    PATIENT = 3
+    ROLE_CHOICES = (
+        (RECEPTIONIST, 'receptionist'),
+        (DOCTOR, 'doctor'),
+        (PATIENT, 'patient')
+    )
+
+    id = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, primary_key=True)
+
+
 # Account model
 class User(AbstractUser):
     role = models.ManyToManyField(Role)
@@ -108,7 +122,7 @@ class Staff(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     first_name = models.CharField(max_length=20, blank=True)
     last_name = models.CharField(max_length=35, blank=True)
-    specialization = models.CharField(max_length=40, blank=True)
+    specialization = models.ManyToManyField(Specialization)
     staff_appointments = models.ForeignKey('api.Appointment', related_name='staff_appointments_set', default=1,
                                            blank=True, on_delete=models.CASCADE)
 
