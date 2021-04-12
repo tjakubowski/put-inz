@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
-from api.models import Appointment
 
 
 class CustomizedUserManager(BaseUserManager):
@@ -84,7 +83,8 @@ class Patient(models.Model):
     last_name = models.CharField(max_length=50, blank=True)
     pesel_number = models.CharField(max_length=11, blank=False, unique=True, default='')
     phone_number = models.CharField(max_length=15, blank=True)
-    patient_appointments = models.ForeignKey(Appointment, blank=True, on_delete=models.CASCADE)
+    patient_appointments = models.ForeignKey('api.Appointment', related_name='patients_appointments_set',
+                                             blank=True, on_delete=models.CASCADE)
 
 
 # Model of staff working in a clinic
@@ -93,5 +93,5 @@ class Staff(models.Model):
     first_name = models.CharField(max_length=20, blank=True)
     last_name = models.CharField(max_length=35, blank=True)
     specialization = models.CharField(max_length=40, blank=True)
-    appointments = models.ForeignKey(Appointment, blank=True, on_delete=models.CASCADE)
-    staff_appointments = models.ForeignKey(Appointment, blank=True, on_delete=models.CASCADE)
+    staff_appointments = models.ForeignKey('api.Appointment', related_name='staff_appointments_set',
+                                           blank=True, on_delete=models.CASCADE)
