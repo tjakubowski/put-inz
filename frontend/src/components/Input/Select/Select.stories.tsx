@@ -4,6 +4,8 @@ import { Meta, Story } from '@storybook/react';
 import Select, { ISelectProps } from './Select';
 import { Controller, useForm } from 'react-hook-form';
 
+import selectData from './__mocks__/selectData';
+
 export default {
   title: 'Atoms/Inputs/Select',
   component: Select,
@@ -15,18 +17,6 @@ export default {
     },
   },
 } as Meta;
-
-const autocomplete = [
-  { label: 'Lorem', value: '1' },
-  { label: 'ipsum', value: '2' },
-  { label: 'Dolor', value: '3' },
-  { label: 'sit', value: '4' },
-  { label: 'amet', value: '5' },
-  { label: 'elit', value: '6' },
-  { label: 'Deserunt', value: '7' },
-  { label: 'consectetur', value: '8' },
-  { label: 'adipisicing', value: '9' },
-];
 
 const Template: Story<ISelectProps> = (args) => {
   const {
@@ -41,7 +31,7 @@ const Template: Story<ISelectProps> = (args) => {
       render={({ field: { onChange, onBlur, value } }) => (
         <Select
           {...args}
-          options={autocomplete}
+          options={selectData}
           onChange={onChange}
           value={value}
           onBlur={onBlur}

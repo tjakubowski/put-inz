@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { darken } from 'polished';
 
 export const StyledLabel = styled.label`
   display: block;
@@ -21,6 +22,11 @@ export const StyledInput = styled.input<InputProps>`
   border: 1px solid ${({ theme }) => theme.colors.default};
   border-radius: 4px;
   position: relative;
+  box-sizing: border-box;
+
+  &:hover {
+    border: 1px solid ${({ theme }) => darken(0.1, theme.colors.default)};
+  }
 
   &:active,
   &:focus {

@@ -74,6 +74,9 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.9"
   },
+  "resolutions": {
+    "babel-loader": "8.1.0"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

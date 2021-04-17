@@ -7,19 +7,21 @@ import Select from '../Input/Select';
 import TextInput from '../Input/TextInput';
 import Button from '../Button';
 import Checkbox from '../Input/Checkbox';
-import Radio from '../Input/Radio';
 import DateCarousel from '../DateCarousel';
+
 import { Dayjs } from 'dayjs';
 import { useBreakpoint } from 'styled-breakpoints/react-styled';
 import { up } from 'styled-breakpoints';
+
 import dates from '../DateCarousel/__mocks__/dates';
+import selectData from '../Input/Select/__mocks__/selectData';
 
 interface IFormData {
   firstname: string;
   lastname: string;
   email: string;
+  phone: string;
   pesel: string;
-  radiotest: string;
   createAccount: string;
   doctor: any;
   date: Dayjs;
@@ -33,18 +35,6 @@ const ReservationForm: React.FC = () => {
     control,
     formState: { errors },
   } = useForm<IFormData>();
-
-  const autocomplete = [
-    { label: 'Lorem', value: '1' },
-    { label: 'ipsum', value: '2' },
-    { label: 'Dolor', value: '3' },
-    { label: 'sit', value: '4' },
-    { label: 'amet', value: '5' },
-    { label: 'elit', value: '6' },
-    { label: 'Deserunt', value: '7' },
-    { label: 'consectetur', value: '8' },
-    { label: 'adipisicing', value: '9' },
-  ];
 
   const onSubmit = (data: IFormData) => console.log(data);
 
@@ -85,7 +75,7 @@ const ReservationForm: React.FC = () => {
             )}
           />
         </Col>
-        <Col cols={12}>
+        <Col cols={12} sm={6}>
           <Controller
             control={control}
             name="email"
@@ -99,6 +89,24 @@ const ReservationForm: React.FC = () => {
                 onChange={onChange}
                 onBlur={onBlur}
                 error={errors.email?.message}
+              />
+            )}
+          />
+        </Col>
+        <Col cols={12} sm={6}>
+          <Controller
+            control={control}
+            name="phone"
+            rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                label="Numer telefonu"
+                type="tel"
+                block
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                error={errors.phone?.message}
               />
             )}
           />
@@ -123,33 +131,18 @@ const ReservationForm: React.FC = () => {
         <Col cols={12}>
           <Controller
             control={control}
-            name="createAccount"
-            rules={{ required: true }}
-            render={({ field: { onChange, value } }) => (
-              <Checkbox
-                name="createAccount"
-                label="Utwórz konto"
+            name="doctor"
+            rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Select
+                placeholder="Wyszukaj lekarza"
+                label="Lekarz"
+                options={selectData}
+                onChange={onChange}
                 value={value}
-                onChange={onChange}
-                error={errors.createAccount?.message}
+                onBlur={onBlur}
+                error={errors.doctor?.message}
               />
-            )}
-          />
-        </Col>
-        <Col cols={12}>
-          <Controller
-            control={control}
-            name="radiotest"
-            render={({ field: { onChange, value } }) => (
-              <Radio.Group
-                defaultValue={value}
-                onChange={onChange}
-                error={errors.radiotest?.message}
-              >
-                <Radio label="Test radio 1" value="one" />
-                <Radio label="Test radio 2" value="two" />
-                <Radio label="Test radio 3" value="three" />
-              </Radio.Group>
             )}
           />
         </Col>
@@ -174,17 +167,15 @@ const ReservationForm: React.FC = () => {
         <Col cols={12}>
           <Controller
             control={control}
-            name="doctor"
-            rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Select
-                placeholder="Wyszukaj lekarza"
-                label="Lekarz"
-                options={autocomplete}
-                onChange={onChange}
+            name="createAccount"
+            rules={{ required: true }}
+            render={({ field: { onChange, value } }) => (
+              <Checkbox
+                name="createAccount"
+                label="Utwórz konto"
                 value={value}
-                onBlur={onBlur}
-                error={errors.doctor?.message}
+                onChange={onChange}
+                error={errors.createAccount?.message}
               />
             )}
           />
