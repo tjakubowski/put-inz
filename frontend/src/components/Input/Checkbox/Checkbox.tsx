@@ -8,7 +8,7 @@ import {
 } from './styled';
 import Error from '../Error';
 
-interface ICheckboxProps {
+export interface ICheckboxProps {
   name: string;
   label?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;

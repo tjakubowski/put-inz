@@ -2,7 +2,7 @@ import React from 'react';
 import { InputProps, StyledInput, StyledLabel, StyledSpan } from './styled';
 import Error from '../Error/Error';
 
-interface ITextInputProps extends InputProps {
+export interface ITextInputProps extends InputProps {
   name?: string;
   type?: 'text' | 'email' | 'password' | 'number' | 'tel';
   label?: string;
@@ -18,6 +18,7 @@ const TextInput: React.FC<ITextInputProps> = ({
   type = 'text',
   required = false,
   block = false,
+  rounded = false,
   value = '',
   name,
   label,
@@ -39,6 +40,7 @@ const TextInput: React.FC<ITextInputProps> = ({
           onBlur={onBlur}
           value={value}
           block={block}
+          rounded={rounded}
         />
       </StyledLabel>
       <Error>{error}</Error>

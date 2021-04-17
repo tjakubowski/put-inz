@@ -10,8 +10,9 @@ import { default as Column } from './DateCarouselColumn';
 import dayjs, { Dayjs } from 'dayjs';
 import { DatesGroup, getGroupedDatesByDayBetween } from '../../utils/date';
 
-interface IDateCarouselProps {
+export interface IDateCarouselProps {
   columns?: number;
+  columnsMove?: number;
   headerText?: string;
   dates?: Dayjs[];
   selectedDate?: Dayjs;
@@ -20,6 +21,7 @@ interface IDateCarouselProps {
 
 const DateCarousel: React.FC<IDateCarouselProps> = ({
   columns = 3,
+  columnsMove = columns,
   headerText = 'Termin wizyty',
   dates = [],
   selectedDate,
@@ -32,18 +34,18 @@ const DateCarousel: React.FC<IDateCarouselProps> = ({
   const [dateGroups, setDateGroups] = useState<DatesGroup[]>([]);
 
   const handleOnPreviousClick = () => {
-    const newStartDay = startDay.add(-columns, 'days');
+    const newStartDay = startDay.add(-columnsMove, 'days');
 
     if (newStartDay.isBefore(dayjs())) {
       setStartDay(dayjs());
       return;
     }
 
-    setStartDay(startDay.add(-columns, 'days'));
+    setStartDay(startDay.add(-columnsMove, 'days'));
   };
 
   const handleOnNextClick = () => {
-    setStartDay(startDay.add(columns, 'days'));
+    setStartDay(startDay.add(columnsMove, 'days'));
   };
 
   useEffect(() => {

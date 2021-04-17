@@ -9,9 +9,10 @@ import Button from '../Button';
 import Checkbox from '../Input/Checkbox';
 import Radio from '../Input/Radio';
 import DateCarousel from '../DateCarousel';
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
 import { useBreakpoint } from 'styled-breakpoints/react-styled';
 import { up } from 'styled-breakpoints';
+import dates from '../DateCarousel/__mocks__/dates';
 
 interface IFormData {
   firstname: string;
@@ -43,24 +44,6 @@ const ReservationForm: React.FC = () => {
     { label: 'Deserunt', value: '7' },
     { label: 'consectetur', value: '8' },
     { label: 'adipisicing', value: '9' },
-  ];
-
-  const dates = [
-    dayjs().hour(12).minute(0),
-    dayjs().hour(15).minute(0),
-    dayjs().hour(14).minute(0),
-    dayjs().hour(17).minute(0),
-    dayjs().hour(18).minute(0),
-
-    dayjs().add(1, 'days').hour(9).minute(0),
-    dayjs().add(1, 'days').hour(10).minute(0),
-    dayjs().add(1, 'days').hour(12).minute(0),
-    dayjs().add(1, 'days').hour(17).minute(0),
-
-    dayjs().add(2, 'days').hour(14).minute(0),
-    dayjs().add(2, 'days').hour(15).minute(0),
-    dayjs().add(2, 'days').hour(16).minute(0),
-    dayjs().add(2, 'days').hour(17).minute(0),
   ];
 
   const onSubmit = (data: IFormData) => console.log(data);

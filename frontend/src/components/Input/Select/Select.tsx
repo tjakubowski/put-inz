@@ -4,7 +4,7 @@ import { ThemeContext } from 'styled-components';
 import Error from '../Error';
 import { StyledLabel, StyledSpan } from './styled';
 
-interface ISelectProps extends NamedProps {
+export interface ISelectProps extends NamedProps {
   error?: string;
   label?: string;
 }

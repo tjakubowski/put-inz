@@ -8,7 +8,7 @@ import {
 
 export interface IButtonProps extends IStyledButtonProps {
   type?: 'button' | 'reset' | 'submit';
-  append?: string;
+  append?: string | React.ReactNode;
   prepend?: string | React.ReactNode;
   onClick?: React.MouseEventHandler;
 }

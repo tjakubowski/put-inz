@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyledErrorBlock, StyledErrorInline } from './styled';
 
-interface IErrorProps {
+export interface IErrorProps {
   inline?: boolean;
 }
 
