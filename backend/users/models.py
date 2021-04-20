@@ -103,7 +103,7 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
     def __str__(self):
-        return f'{self.role}  Mail:{self.email}, Created at:{self.created_at}'
+        return f'{self.role}  Mail:{self.email}, Created at:{self.date_joined}'
 
 
 # Model of patient attending the clinic
@@ -113,8 +113,8 @@ class Patient(models.Model):
     last_name = models.CharField(max_length=50, blank=True)
     pesel_number = models.CharField(max_length=11, blank=False, unique=True, default='')
     phone_number = models.CharField(max_length=15, blank=True)
-    patient_appointments = models.ForeignKey('api.Appointment', related_name='patients_appointments_set', default=1,
-                                             blank=True, on_delete=models.CASCADE)
+    patient_appointments = models.ForeignKey('api.Appointment', related_name='patients_appointments_set',
+                                             blank=True, null=True, on_delete=models.CASCADE)
 
 
 # Model of staff working in a clinic
@@ -123,8 +123,8 @@ class Staff(models.Model):
     first_name = models.CharField(max_length=20, blank=True)
     last_name = models.CharField(max_length=35, blank=True)
     specialization = models.ManyToManyField(Specialization)
-    staff_appointments = models.ForeignKey('api.Appointment', related_name='staff_appointments_set', default=1,
-                                           blank=True, on_delete=models.CASCADE)
+    staff_appointments = models.ForeignKey('api.Appointment', related_name='staff_appointments_set',
+                                           blank=True, null=True, on_delete=models.CASCADE)
 
 
 class Receptionist(models.Model):
