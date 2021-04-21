@@ -33,6 +33,8 @@ class StaffCreateView(APIView):
         password = make_password(request.data.get('password'))
         user.set_password(password)
         patient = Staff(user=user)
+        patient.first_name=request.data.get('first_name')
+        patient.last_name=request.data.get('last_name')
         user.save()
         patient.save()
         return Response(status=status.HTTP_201_CREATED)
