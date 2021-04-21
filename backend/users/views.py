@@ -106,3 +106,18 @@ class PatientInfoView(APIView):
             return Response(res, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class StaffInfoView(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request):
+        user_id = request.data['user_id']
+        if Staff.objects.filter(user_id=user_id).exists():
+            patient = Staff.objects.filter(user_id=user_id).first()
+            res={}
+            res['first_name']=patient.first_name
+            res['last_name']=patient.last_name
+            #res['specialization']=patient.specialization
+            return Response(res, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
