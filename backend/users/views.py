@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth.hashers import check_password
 from django.core import serializers
+import json
 
 
 class PatientCreateView(APIView):
@@ -82,4 +83,20 @@ class PatientListView(APIView):
         patients =  serializers.serialize("json", Patient.objects.all())
         return Response(patients, status=status.HTTP_200_OK)
 
-    
+
+
+class PatientInfoView(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request):
+        user_id = request.data['user_id']
+        if Patient.objects.filter(user_id=user_id).exists():
+            patient = Patient.objects.filter(user_id=user_id).first()
+            res={}
+            res['first_name']=patient.first_name
+            res['last_name']=patient.last_name
+            res['pesel_number']=patient.pesel_number
+            res['phone_numer']=patient.phone_number
+            
+            return Response(res, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
