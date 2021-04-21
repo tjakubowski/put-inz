@@ -3,9 +3,9 @@ from django.contrib.auth.hashers import make_password
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth.hashers import check_password
-
+from django.core import serializers
 
 
 class PatientCreateView(APIView):
@@ -76,3 +76,10 @@ class PatientLoginView(APIView):
             return Response(res)
 
         
+class PatientListView(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request):
+        patients =  serializers.serialize("json", Patient.objects.all())
+        return Response(patients, status=status.HTTP_200_OK)
+
+    
