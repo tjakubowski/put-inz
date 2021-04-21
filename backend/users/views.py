@@ -15,8 +15,12 @@ class PatientCreateView(APIView):
         user = User()
         user.email = request.data.get('email')
         password = make_password(request.data.get('password'))
+        #user.role=3
         user.set_password(password)
         patient = Patient(user=user, pesel_number=request.data.get('pesel_number'))
+        patient.first_name = request.data.get('first_name')
+        patient.last_name = request.data.get('last_name')
+        patient.phone_number = request.data.get('phone_number')  
         user.save()
         patient.save()
         return Response(status=status.HTTP_201_CREATED)
@@ -41,7 +45,8 @@ class PatientLoginView(APIView):
             password = request.data['password']
 
             if User.objects.filter(email=email).exists():
-                user = User.objects.filter(email=email).first()
+                #user = User.objects.filter(email=email).first()
+                user=User.objects.get(email=email)
                 print(user)
                 try:
                     
@@ -96,7 +101,6 @@ class PatientInfoView(APIView):
             res['last_name']=patient.last_name
             res['pesel_number']=patient.pesel_number
             res['phone_numer']=patient.phone_number
-            
             return Response(res, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
