@@ -9,6 +9,7 @@ from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.core import serializers
 import json
+from .models import Role
 
 
 class PatientCreateView(APIView):
@@ -34,11 +35,11 @@ class StaffCreateView(APIView):
         user.email = request.data.get('email')
         password = make_password(request.data.get('password'))
         user.set_password(password)
-        patient = Staff(user=user)
-        patient.first_name=request.data.get('first_name')
-        patient.last_name=request.data.get('last_name')
+        staff = Staff(user=user)
+        staff.first_name=request.data.get('first_name')
+        staff.last_name=request.data.get('last_name')
         user.save()
-        patient.save()
+        staff.save()
         return Response(status=status.HTTP_201_CREATED)
 
 class PatientLoginView(APIView):
@@ -86,7 +87,7 @@ class PatientLoginView(APIView):
 
         
 class PatientListView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         patients =  serializers.serialize("json", Patient.objects.all())
         return Response(patients, status=status.HTTP_200_OK)
@@ -94,7 +95,7 @@ class PatientListView(APIView):
 
 
 class PatientInfoView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         user_id = request.data['user_id']
         if Patient.objects.filter(user_id=user_id).exists():
@@ -110,7 +111,7 @@ class PatientInfoView(APIView):
 
 
 class StaffInfoView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         user_id = request.data['user_id']
         if Staff.objects.filter(user_id=user_id).exists():
