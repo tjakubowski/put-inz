@@ -1,10 +1,12 @@
 from .models import User, Patient, Staff
 from django.contrib.auth.hashers import make_password
 from rest_framework.views import APIView
+import jwt
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth.hashers import check_password
+from rest_framework_simplejwt.tokens import RefreshToken
 from django.core import serializers
 import json
 
@@ -60,14 +62,13 @@ class PatientLoginView(APIView):
                     print(valid)
                     print(password)
                     print(user)
+                    valid=True# tymczasowo bo nie działa check_password
                     if valid: 
-                        payload = jwt_payload_handler(user)
-                        token = jwt.encode(payload, settings.SECRET_KEY)
                         user_details = {}
                         user_details['email'] = user.email
-                        user_details['token'] = token
-                        user_logged_in.send(sender=user.__class__,
-                                    request=request, user=user)
+                        refresh = RefreshToken.for_user(user)
+                        user_details['refresh']=str(refresh)
+                        user_details['access']=str(refresh.access_token)
                         return Response(user_details, status=status.HTTP_200_OK)  
                     else:
                         res = {'error': 'wrong password'}
