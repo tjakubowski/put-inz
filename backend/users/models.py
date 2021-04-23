@@ -82,14 +82,14 @@ class Specialization(models.Model):
     STOMATOLOG = 2
     PSYCHIATRA = 3
     OKULISTA = 4
-    ROLE_CHOICES = (
+    SPECIALIZATION_CHOICES = (
         (KARDIOLOG, 'KARDIOLOG'),
         (STOMATOLOG, 'STOMATOLOG'),
         (PSYCHIATRA, 'PSYCHIATRA'),
         (OKULISTA, 'OKULISTA')
     )
 
-    id = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, primary_key=True)
+    id = models.PositiveSmallIntegerField(choices=SPECIALIZATION_CHOICES, primary_key=True)
 
 
 # Account model
