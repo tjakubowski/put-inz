@@ -38,15 +38,11 @@ class PatientCreateView(APIView):
         patient.save()
         return Response(status=status.HTTP_201_CREATED)
 
-class ReceptionsitCreateView(APIView):
+class ReceptionistCreateView(APIView):
     permission_classes = [AllowAny]
     def post(self, request):
         if User.objects.filter(email=request.data.get('email')).exists():
             res={'error':'user with this email exists'}
-            return Response(res, status=status.HTTP_409_CONFLICT)
-
-        if User.objects.filter(pesel_number=request.data.get('pesel_number exist')).exists():
-            res={'error':'user with this pesel'}
             return Response(res, status=status.HTTP_409_CONFLICT)
 
         user = User()
