@@ -8,7 +8,6 @@ from rest_framework import status
 from users.models import Staff, Receptionist,User, Patient
 import uuid
 from django.utils.dateparse import parse_datetime
-from datatime import datatime
 
 # Create your views here.
 
