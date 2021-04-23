@@ -83,15 +83,6 @@ class DoctorCreateView(APIView):
         role.save()
         user.role.add(role)
 
-        if len(request.data.get('specialization')) > 1:
-            for i in request.data.get('specialization'):
-                s = Specialization(id=i)
-                s.save()
-                staff.specialization.add(s)
-        else:
-            specialization = Specialization(id=request.data.get('specialization'))
-            specialization.save()
-            staff.specialization.add(specialization)
         user.save()
         staff.save()
         return Response(status=status.HTTP_201_CREATED)
