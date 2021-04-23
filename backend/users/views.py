@@ -1,14 +1,12 @@
 from .models import User, Patient, Staff, Role, Specialization, Receptionist
 from django.contrib.auth.hashers import make_password
 from rest_framework.views import APIView
-import jwt
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.core import serializers
-import json
 
 
 class PatientCreateView(APIView):
@@ -73,20 +71,27 @@ class DoctorCreateView(APIView):
             res = {'error': 'user with this email exists'}
             return Response(res, status=status.HTTP_409_CONFLICT)
 
-        user = User()
-        user.email = request.data.get('email')
+        user = User(email=request.data.get('email'))
         password = make_password(request.data.get('password'))
         user.set_password(password)
+        user.save()
         staff = Staff(user=user)
         staff.first_name = request.data.get('first_name')
         staff.last_name = request.data.get('last_name')
-        user.save()
+
         role = Role(id=2)
         role.save()
         user.role.add(role)
-        # specialization=Specialization(id=request.data.get('specialization'))
-        # specialization.save()
-        # staff.specialization.add(specialization)
+
+        if len(request.data.get('specialization')) > 1:
+            for i in request.data.get('specialization'):
+                s = Specialization(id=i)
+                s.save()
+                staff.specialization.add(s)
+        else:
+            specialization = Specialization(id=request.data.get('specialization'))
+            specialization.save()
+            staff.specialization.add(specialization)
         user.save()
         staff.save()
         return Response(status=status.HTTP_201_CREATED)
