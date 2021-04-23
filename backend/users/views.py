@@ -25,7 +25,7 @@ class PatientCreateView(APIView):
         user = User()
         user.email = request.data.get('email')
         password = make_password(request.data.get('password'))
-        user.set_password(password)
+        user.password=password #do not use set password!
         role = Role(id=3)
         role.save()
         user.save()
@@ -100,8 +100,8 @@ class LoginView(APIView):
             if User.objects.filter(email=email).exists():
                 user=User.objects.get(email=email)
                 try:
-                    valid = user.check_password(password)
-                    if valid: 
+                    
+                    if check_password(password,user.password): 
                         user_details = {}
                         user_details['email'] = user.email
                         refresh = RefreshToken.for_user(user)
