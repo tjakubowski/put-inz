@@ -78,15 +78,15 @@ class Role(models.Model):
 
 # Specialization model
 class Specialization(models.Model):
-    KARDIOLOG = 1
-    STOMATOLOG = 2
-    PSYCHIATRA = 3
-    OKULISTA = 4
+    CARDIOLOGIST = 1
+    DENTIST = 2
+    PSYCHIATRIST = 3
+    OCULIST = 4
     SPECIALIZATION_CHOICES = (
-        (KARDIOLOG, 'KARDIOLOG'),
-        (STOMATOLOG, 'STOMATOLOG'),
-        (PSYCHIATRA, 'PSYCHIATRA'),
-        (OKULISTA, 'OKULISTA')
+        (CARDIOLOGIST, 'cardiologist'),
+        (DENTIST, 'dentist'),
+        (PSYCHIATRIST, 'psychiatrist'),
+        (OCULIST, 'oculist')
     )
 
     id = models.PositiveSmallIntegerField(choices=SPECIALIZATION_CHOICES, primary_key=True)
@@ -121,7 +121,7 @@ class Patient(models.Model):
 
 # Model of staff working in a clinic
 class Staff(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=False, primary_key=True)
     first_name = models.CharField(max_length=20, blank=True)
     last_name = models.CharField(max_length=35, blank=True)
     specialization = models.ManyToManyField(Specialization)
@@ -129,6 +129,8 @@ class Staff(models.Model):
                                            blank=True, null=True, on_delete=models.CASCADE)
 
 
+# Model of receptionist
 class Receptionist(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=False, primary_key=True)
     first_name = models.CharField(max_length=20, blank=True)
     last_name = models.CharField(max_length=20, blank=True)
