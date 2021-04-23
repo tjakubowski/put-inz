@@ -78,13 +78,15 @@ class Role(models.Model):
 
 # Specialization model
 class Specialization(models.Model):
-    RECEPTIONIST = 1
-    DOCTOR = 2
-    PATIENT = 3
+    KARDIOLOG = 1
+    STOMATOLOG = 2
+    PSYCHIATRA = 3
+    OKULISTA = 4
     ROLE_CHOICES = (
-        (RECEPTIONIST, 'receptionist'),
-        (DOCTOR, 'doctor'),
-        (PATIENT, 'patient')
+        (KARDIOLOG, 'KARDIOLOG'),
+        (STOMATOLOG, 'STOMATOLOG'),
+        (PSYCHIATRA, 'PSYCHIATRA'),
+        (OKULISTA, 'OKULISTA')
     )
 
     id = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, primary_key=True)
