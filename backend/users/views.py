@@ -14,6 +14,14 @@ import json
 class PatientCreateView(APIView):
     permission_classes = [AllowAny]
     def post(self, request):
+        if User.objects.filter(email=request.data.get('email')).exists():
+            res={'error':'user with this email exists'}
+            return Response(res, status=status.HTTP_409_CONFLICT)
+
+        if Patient.objects.filter(pesel_number=request.data.get('pesel_number exist')).exists():
+            res={'error':'user with this pesel'}
+            return Response(res, status=status.HTTP_409_CONFLICT)
+
         user = User()
         user.email = request.data.get('email')
         password = make_password(request.data.get('password'))
@@ -33,6 +41,14 @@ class PatientCreateView(APIView):
 class ReceptionsitCreateView(APIView):
     permission_classes = [AllowAny]
     def post(self, request):
+        if User.objects.filter(email=request.data.get('email')).exists():
+            res={'error':'user with this email exists'}
+            return Response(res, status=status.HTTP_409_CONFLICT)
+
+        if User.objects.filter(pesel_number=request.data.get('pesel_number exist')).exists():
+            res={'error':'user with this pesel'}
+            return Response(res, status=status.HTTP_409_CONFLICT)
+
         user = User()
         user.email = request.data.get('email')
         password = make_password(request.data.get('password'))
@@ -54,6 +70,11 @@ class ReceptionsitCreateView(APIView):
 class DoctorCreateView(APIView):
     permission_classes = [AllowAny]
     def post(self, request):
+        if User.objects.filter(email=request.data.get('email')).exists():
+            res={'error':'user with this email exists'}
+            return Response(res, status=status.HTTP_409_CONFLICT)
+
+
         user = User()
         user.email = request.data.get('email')
         password = make_password(request.data.get('password'))
@@ -65,9 +86,9 @@ class DoctorCreateView(APIView):
         role=Role(id=2)
         role.save()
         user.role.add(role)
-        specialization=Specialization(id=request.data.get('specialization_id'))
-        specialization.save()
-        staff.specialization.add(specialization)
+        #specialization=Specialization(id=request.data.get('specialization'))
+        #specialization.save()
+        #staff.specialization.add(specialization)
         user.save()
         staff.save()
         return Response(status=status.HTTP_201_CREATED)
