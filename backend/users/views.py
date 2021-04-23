@@ -47,8 +47,7 @@ class ReceptionistCreateView(APIView):
 
         user = User()
         user.email = request.data.get('email')
-        password = make_password(request.data.get('password'))
-        user.set_password(password)
+        user.set_password(request.data.get('password'))
         staff = Staff(user=user)
         staff.first_name = request.data.get('first_name')
         staff.last_name = request.data.get('last_name')
@@ -72,8 +71,7 @@ class DoctorCreateView(APIView):
             return Response(res, status=status.HTTP_409_CONFLICT)
 
         user = User(email=request.data.get('email'))
-        password = make_password(request.data.get('password'))
-        user.set_password(password)
+        user.set_password(request.data.get('password'))
         user.save()
         staff = Staff(user=user)
         staff.first_name = request.data.get('first_name')
