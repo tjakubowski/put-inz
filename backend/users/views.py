@@ -98,20 +98,9 @@ class LoginView(APIView):
             password = request.data['password']
 
             if User.objects.filter(email=email).exists():
-                #user = User.objects.filter(email=email).first()
                 user=User.objects.get(email=email)
-                print(user)
                 try:
-                    
                     valid = user.check_password(password)
-                    #valid = check_password(password, user.password)
-                    #valid = authenticate(email=email,password=password)
-                    #valid = validate_password(password=password,user=user)
-                    
-                    print(valid)
-                    print(password)
-                    print(user)
-                    valid=True# tymczasowo bo nie działa check_password
                     if valid: 
                         user_details = {}
                         user_details['email'] = user.email
