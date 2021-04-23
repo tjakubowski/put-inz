@@ -1,4 +1,4 @@
-from .models import User, Patient, Staff
+from .models import User, Patient, Staff, Role, Specialization, Receptionist
 from django.contrib.auth.hashers import make_password
 from rest_framework.views import APIView
 import jwt
@@ -9,7 +9,6 @@ from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.core import serializers
 import json
-from .models import Role
 
 
 class PatientCreateView(APIView):
@@ -18,17 +17,41 @@ class PatientCreateView(APIView):
         user = User()
         user.email = request.data.get('email')
         password = make_password(request.data.get('password'))
-        #user.role=3
         user.set_password(password)
+        role = Role(id=3)
+        role.save()
+        user.save()
+        user.role.add(role)
+        user.save()
         patient = Patient(user=user, pesel_number=request.data.get('pesel_number'))
         patient.first_name = request.data.get('first_name')
         patient.last_name = request.data.get('last_name')
         patient.phone_number = request.data.get('phone_number')  
-        user.save()
         patient.save()
         return Response(status=status.HTTP_201_CREATED)
 
-class StaffCreateView(APIView):
+class ReceptionsitCreateView(APIView):
+    permission_classes = [AllowAny]
+    def post(self, request):
+        user = User()
+        user.email = request.data.get('email')
+        password = make_password(request.data.get('password'))
+        user.set_password(password)
+        staff = Staff(user=user)
+        staff.first_name=request.data.get('first_name')
+        staff.last_name=request.data.get('last_name')
+        receptionist=Receptionist(first_name=request.data.get('first_name'),last_name=request.data.get('last_name'))
+        receptionist.save()
+        user.save()
+        role = Role(id=1)
+        role.save()
+        user.role.add(role)
+        user.save()
+        staff.save()
+        return Response(status=status.HTTP_201_CREATED)
+
+
+class DoctorCreateView(APIView):
     permission_classes = [AllowAny]
     def post(self, request):
         user = User()
@@ -39,10 +62,18 @@ class StaffCreateView(APIView):
         staff.first_name=request.data.get('first_name')
         staff.last_name=request.data.get('last_name')
         user.save()
+        role=Role(id=2)
+        role.save()
+        user.role.add(role)
+        specialization=Specialization(id=request.data.get('specialization_id'))
+        specialization.save()
+        staff.specialization.add(specialization)
+        user.save()
         staff.save()
         return Response(status=status.HTTP_201_CREATED)
+        
 
-class PatientLoginView(APIView):
+class LoginView(APIView):
     permission_classes = [AllowAny]
     def post(self, request):
         try:
@@ -70,6 +101,7 @@ class PatientLoginView(APIView):
                         refresh = RefreshToken.for_user(user)
                         user_details['refresh']=str(refresh)
                         user_details['access']=str(refresh.access_token)
+                        user_details['role']=serializers.serialize('json', user.role.all())
                         return Response(user_details, status=status.HTTP_200_OK)  
                     else:
                         res = {'error': 'wrong password'}
