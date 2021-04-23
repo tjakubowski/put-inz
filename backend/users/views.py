@@ -24,8 +24,7 @@ class PatientCreateView(APIView):
 
         user = User()
         user.email = request.data.get('email')
-        password = make_password(request.data.get('password'))
-        user.password=password #do not use set password!
+        user.set_password(request.data.get('password'))
         role = Role(id=3)
         role.save()
         user.save()
