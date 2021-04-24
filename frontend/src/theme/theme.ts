@@ -13,6 +13,7 @@ const colors = {
   secondary: '#2e2e2e',
   default: '#d0d0d0',
   error: '#d72222',
+  white: '#ffffff',
 };
 
 const fontSize = {
