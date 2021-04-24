@@ -20,7 +20,8 @@ const fontSize = {
   sm: '1.2rem',
   md: '1.4rem',
   lg: '1.6rem',
-  xl: '2.8rem',
+  xl: '2rem',
+  xxl: '2.8rem',
 };
 
 const button = {
