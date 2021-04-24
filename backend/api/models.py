@@ -1,12 +1,11 @@
 from django.db import models
-from django.contrib.postgres.fields import ArrayField
-import uuid
+from django.utils import timezone
 
 
+# Appointment model
 class Appointment(models.Model):
-    doctorId = models.IntegerField()
-    userId = models.IntegerField(blank=True)
-    datetime = models.DateTimeField(auto_now=False, auto_now_add=False)
-    phone = models.CharField(max_length=16)
-    email = models.EmailField(max_length=254, blank=False)
+    doctor = models.ForeignKey('users.Staff', blank=False, default=1, on_delete=models.CASCADE)
+    patient = models.ForeignKey('users.Patient', blank=False, default=1, on_delete=models.CASCADE)
+    appointment_date = models.DateTimeField(blank=False, default=timezone.now)
+    created_at = models.DateTimeField(auto_now_add=True)
     note = models.CharField(max_length=160, blank=True)
