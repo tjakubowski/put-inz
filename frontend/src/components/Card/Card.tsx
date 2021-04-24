@@ -10,7 +10,7 @@ import {
 export interface ICardProps {}
 
 interface CardComposition {
-  Header: React.FC;
+  Title: React.FC;
   Text: React.FC;
   Actions: React.FC;
   Image: typeof StyledImage;
