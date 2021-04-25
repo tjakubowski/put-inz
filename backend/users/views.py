@@ -6,32 +6,64 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
-from django.core import serializers
+from api.serializers import PatientSerializer
+
+
+# class PatientCreateView(APIView):
+#     permission_classes = [AllowAny]
+#
+#     def post(self, request):
+#         if User.objects.filter(email=request.data.get('email')).exists():
+#             res = {'error': 'user with this email exists'}
+#             return Response(res, status=status.HTTP_409_CONFLICT)
+#
+#         user = User(email=request.data.get('email'))
+#         user.set_password(request.data.get('password'))
+#         role = Role(id=3)
+#         role.save()
+#
+#         user.save()
+#         user.role = role
+#         user.save()
+#         patient = Patient(user=user,
+#                           first_name=request.data.get('first_name'),
+#                           last_name=request.data.get('last_name'),
+#                           phone_number=request.data.get('phone_number'),
+#                           pesel_number=request.data.get('pesel_number'))
+#         patient.save()
+#         return Response(status=status.HTTP_201_CREATED)
 
 
 class PatientCreateView(APIView):
+    serializer_class = PatientSerializer
     permission_classes = [AllowAny]
 
+    def get(self, request):
+        queryset = Patient.objects.all()
+        serializer = PatientSerializer(queryset, many=True)
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
     def post(self, request):
-        if User.objects.filter(email=request.data.get('email')).exists():
-            res = {'error': 'user with this email exists'}
-            return Response(res, status=status.HTTP_409_CONFLICT)
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            user = User(email=serializer.data.get('email'))
+            user.set_password(serializer.data.get('password'))
+            role = Role(id=3)
+            role.save()
+            #user.save()
+            user.role = role
+            user.save()
+            patient = Patient(user=user,
+                              first_name=request.data.get('first_name'),
+                              last_name=request.data.get('last_name'),
+                              pesel_number=request.data.get('pesel_number'),
+                              phone_number=request.data.get('phone_number')
+                              )
+            patient.save()
+            return Response(status=status.HTTP_201_CREATED)
 
-        user = User(email=request.data.get('email'))
-        user.set_password(request.data.get('password'))
-        role = Role(id=3)
-        role.save()
-
-        user.save()
-        user.role = role
-        user.save()
-        patient = Patient(user=user,
-                          first_name=request.data.get('first_name'),
-                          last_name=request.data.get('last_name'),
-                          phone_number=request.data.get('phone_number'),
-                          pesel_number=request.data.get('pesel_number'))
-        patient.save()
-        return Response(status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class ReceptionistCreateView(APIView):

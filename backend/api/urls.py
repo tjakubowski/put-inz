@@ -6,5 +6,5 @@ urlpatterns = [
     path('appointment', AppointmentAPI.as_view(), name='AppointmentList'),
     path('patient-list', PatientListView.as_view(), name='PatientList'),
     path('patient-info/<int:pk>', PatientInfoView.as_view(), name='PatientInfoView'),
-    path('staff-info', StaffInfoView.as_view(), name='StaffInfoView')
+    path('staff-info/<int:pk>', StaffInfoView.as_view(), name='StaffInfoView')
 ]
