@@ -17,7 +17,7 @@ class PatientCreateView(APIView):
             res = {'error': 'user with this email exists'}
             return Response(res, status=status.HTTP_409_CONFLICT)
 
-        if Patient.objects.filter(pesel_number=request.data.get('pesel_number exist')).exists():
+        if Patient.objects.filter(pesel_number=request.data.get('pesel_number')).exists():
             res = {'error': 'user with this pesel'}
             return Response(res, status=status.HTTP_409_CONFLICT)
 
