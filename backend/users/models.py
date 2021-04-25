@@ -118,7 +118,7 @@ class Patient(models.Model):
 
 
 # Model of staff working in a clinic
-class Staff(models.Model):
+class Doctor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=False, primary_key=True)
     first_name = models.CharField(max_length=20, blank=True)
     last_name = models.CharField(max_length=35, blank=True)

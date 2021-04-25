@@ -1,4 +1,4 @@
-from .models import User, Patient, Staff, Role, Specialization, Receptionist
+from .models import User, Patient, Doctor, Role, Specialization, Receptionist
 from django.contrib.auth.hashers import make_password
 from rest_framework.views import APIView
 from rest_framework import status
@@ -91,7 +91,7 @@ class DoctorCreateView(APIView):
         user = User(email=request.data.get('email'))
         user.set_password(request.data.get('password'))
         user.save()
-        staff = Staff(user=user)
+        staff = Doctor(user=user)
         staff.first_name = request.data.get('first_name')
         staff.last_name = request.data.get('last_name')
 

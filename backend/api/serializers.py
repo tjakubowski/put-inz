@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Appointment
-from users.models import Staff, Patient, User, Specialization, Receptionist
+from users.models import Doctor, Patient, User, Specialization, Receptionist
 
 
 # User Instance serializer
@@ -39,7 +39,7 @@ class StaffSerializer(serializers.ModelSerializer):
     specializations = SpecializationSerializer(source='specialization_set', many=True)
 
     class Meta:
-        model = Staff
+        model = Doctor
         fields = (
             'user'
             'first_name',

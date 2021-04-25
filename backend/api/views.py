@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from .models import Appointment
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
-from users.models import Staff, Receptionist, User, Patient
+from users.models import Doctor, Receptionist, User, Patient
 from django.utils.dateparse import parse_datetime
 from rest_framework.views import APIView
 from rest_framework import serializers
@@ -20,7 +20,7 @@ class AppointmentAPI(generics.GenericAPIView):
         appointment = Appointment()
         date = request.data.get('appointment_date')
         appointment.appointment_date = parse_datetime(date)
-        doctor = Staff.objects.filter(user_id=request.data.get('doctor')).first()
+        doctor = Doctor.objects.filter(user_id=request.data.get('doctor')).first()
         appointment.doctor = doctor
         patient = Patient.objects.filter(user_id=request.data.get('patient')).first()
         appointment.patient = patient
@@ -51,12 +51,12 @@ class PatientListView(APIView):
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 
-class StaffInfoView(APIView):
+class DoctorInfoView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, pk):
-        if Staff.objects.filter(user_id=pk).exists():
-            staff = Staff.objects.filter(user_id=pk)
+        if Doctor.objects.filter(user_id=pk).exists():
+            staff = Doctor.objects.filter(user_id=pk)
             serializer = StaffSerializer(staff, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
@@ -64,10 +64,10 @@ class StaffInfoView(APIView):
 
 
 # Class base view returning full Staff list
-class StaffListView(APIView):
+class DoctorListView(APIView):
 
     def get(self, request):
-        queryset = Staff.objects.all()
+        queryset = Doctor.objects.all()
         serializer = StaffSerializer(queryset, many=True)
 
         return Response(data=serializer.data)

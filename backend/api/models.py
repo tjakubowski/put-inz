@@ -4,7 +4,7 @@ from django.utils import timezone
 
 # Appointment model
 class Appointment(models.Model):
-    doctor = models.ForeignKey('users.Staff', blank=False, default=1, on_delete=models.CASCADE)
+    doctor = models.ForeignKey('users.Doctor', blank=False, default=1, on_delete=models.CASCADE)
     patient = models.ForeignKey('users.Patient', blank=False, default=1, on_delete=models.CASCADE)
     appointment_date = models.DateTimeField(blank=False, default=timezone.now)
     is_confirmed = models.BooleanField(blank=False, default=False)
@@ -14,7 +14,7 @@ class Appointment(models.Model):
 
 # Patient's documentation file model
 class PatientDocumentation(models.Model):
-    doctor = models.ForeignKey('users.Staff', blank=False, on_delete=models.CASCADE)
+    doctor = models.ForeignKey('users.Doctor', blank=False, on_delete=models.CASCADE)
     patient = models.ForeignKey('users.Patient', blank=False, on_delete=models.CASCADE)
     related_appointment = models.ForeignKey('api.Appointment', blank=False, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
