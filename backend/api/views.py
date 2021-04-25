@@ -10,6 +10,7 @@ from django.utils.dateparse import parse_datetime
 from rest_framework.views import APIView
 from rest_framework import serializers
 from django.core import serializers
+from serializers import StaffSerializer
 
 
 class AppointmentAPI(generics.GenericAPIView):
@@ -67,3 +68,13 @@ class StaffInfoView(APIView):
             return Response(res, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+# Class base view returning full Staff list
+class StaffListView(APIView):
+
+    def get(self, request):
+        queryset = Staff.objects.all()
+        serializer = StaffSerializer(queryset, many=True)
+
+        return Response(data=serializer.data)

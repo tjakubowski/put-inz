@@ -94,7 +94,7 @@ class Specialization(models.Model):
 
 # Account model
 class User(AbstractUser):
-    role = models.ManyToManyField(Role)
+    role = models.OneToOneField(Role)
     username = None
     email = models.EmailField(max_length=30, unique=True, blank=False)
     date_joined = models.DateTimeField(default=timezone.now)
@@ -115,8 +115,6 @@ class Patient(models.Model):
     last_name = models.CharField(max_length=50, blank=True)
     pesel_number = models.CharField(max_length=11, blank=False, unique=True, default='')
     phone_number = models.CharField(max_length=15, blank=True)
-    patient_appointments = models.ForeignKey('api.Appointment', related_name='patients_appointments_set',
-                                             blank=True, null=True, on_delete=models.CASCADE)
 
 
 # Model of staff working in a clinic
@@ -125,8 +123,6 @@ class Staff(models.Model):
     first_name = models.CharField(max_length=20, blank=True)
     last_name = models.CharField(max_length=35, blank=True)
     specializations = models.ManyToManyField(Specialization, blank=True)
-    staff_appointments = models.ForeignKey('api.Appointment', related_name='staff_appointments_set',
-                                           blank=True, null=True, on_delete=models.CASCADE)
 
 
 # Model of receptionist
