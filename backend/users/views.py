@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
-from api.serializers import PatientSerializer
+from api.serializers import PatientSerializer, PatientCreateSerializer
 
 
 # class PatientCreateView(APIView):
@@ -35,7 +35,7 @@ from api.serializers import PatientSerializer
 
 
 class PatientCreateView(APIView):
-    serializer_class = PatientSerializer
+    serializer_class = PatientCreateSerializer
     permission_classes = [AllowAny]
 
     def get(self, request):
@@ -45,13 +45,14 @@ class PatientCreateView(APIView):
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
+
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             user = User(email=serializer.data.get('email'))
             user.set_password(serializer.data.get('password'))
             role = Role(id=3)
             role.save()
-            #user.save()
+            user.save()
             user.role = role
             user.save()
             patient = Patient(user=user,

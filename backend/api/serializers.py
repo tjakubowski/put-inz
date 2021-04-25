@@ -14,6 +14,16 @@ class UserSerializer(serializers.ModelSerializer):
         )
 
 
+# User create serializer
+class UserCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'email',
+            'password'
+        )
+
+
 # Specialization serializer
 class SpecializationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -35,6 +45,21 @@ class StaffSerializer(serializers.ModelSerializer):
             'first_name',
             'last_name',
             'specializations'
+        )
+
+
+# Patient create serializer
+class PatientCreateSerializer(serializers.ModelSerializer):
+    user = UserCreateSerializer()
+
+    class Meta:
+        model = Patient
+        fields = (
+            'user',
+            'first_name',
+            'last_name',
+            'pesel_number',
+            'phone_number'
         )
 
 
