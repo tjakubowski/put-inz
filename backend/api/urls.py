@@ -4,7 +4,7 @@ from .views import PatientListView, PatientInfoView, StaffInfoView
 
 urlpatterns = [
     path('appointment/', AppointmentAPI.as_view(), name='AppointmentList'),
-    path('patient_list/', PatientListView.as_view(), name='PatientList'),
-    path('patient_info/', PatientInfoView.as_view(), name='PatientInfoView'),
-    path('staff_info/', StaffInfoView.as_view(), name='StaffInfoView')
+    path('patient-list/', PatientListView.as_view(), name='PatientList'),
+    path('patient-info/', PatientInfoView.as_view(), name='PatientInfoView'),
+    path('staff-info/', StaffInfoView.as_view(), name='StaffInfoView')
 ]
