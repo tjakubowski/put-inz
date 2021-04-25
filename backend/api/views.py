@@ -10,7 +10,7 @@ from django.utils.dateparse import parse_datetime
 from rest_framework.views import APIView
 from rest_framework import serializers
 from django.core import serializers
-from .serializers import StaffSerializer
+from .serializers import StaffSerializer, PatientSerializer
 
 
 class AppointmentAPI(generics.GenericAPIView):
@@ -29,29 +29,26 @@ class AppointmentAPI(generics.GenericAPIView):
         return Response(status=status.HTTP_201_CREATED)
 
 
-class PatientListView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request):
-        patients = serializers.serialize("json", Patient.objects.all())
-        return Response(patients, status=status.HTTP_200_OK)
-
-
 class PatientInfoView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
-    def get(self, request):
-        user_id = request.data['user_id']
-        if Patient.objects.filter(user_id=user_id).exists():
-            patient = Patient.objects.filter(user_id=user_id).first()
-            res = {}
-            res['first_name'] = patient.first_name
-            res['last_name'] = patient.last_name
-            res['pesel_number'] = patient.pesel_number
-            res['phone_numer'] = patient.phone_number
-            return Response(res, status=status.HTTP_200_OK)
+    def get(self, request, pk):
+        if Patient.objects.filter(user=pk).exists():
+            patient = Patient.objects.filter(user=pk)
+            serializer = PatientSerializer(patient, many=True)
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class PatientListView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        queryset = Patient.objects.all()
+        serializer = PatientSerializer(queryset, many=True)
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 
 class StaffInfoView(APIView):

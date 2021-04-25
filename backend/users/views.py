@@ -17,20 +17,19 @@ class PatientCreateView(APIView):
             res = {'error': 'user with this email exists'}
             return Response(res, status=status.HTTP_409_CONFLICT)
 
-        if Patient.objects.filter(pesel_number=request.data.get('pesel_number')).exists():
-            res = {'error': 'user with this pesel'}
-            return Response(res, status=status.HTTP_409_CONFLICT)
-
-        user = User(request.data.get('email'))
+        user = User(email=request.data.get('email'))
         user.set_password(request.data.get('password'))
         role = Role(id=3)
         role.save()
+
+        user.save()
         user.role = role
         user.save()
-        patient = Patient(user=user, pesel_number=request.data.get('pesel_number'))
-        patient.first_name = request.data.get('first_name')
-        patient.last_name = request.data.get('last_name')
-        patient.phone_number = request.data.get('phone_number')
+        patient = Patient(user=user,
+                          first_name=request.data.get('first_name'),
+                          last_name=request.data.get('last_name'),
+                          phone_number=request.data.get('phone_number'),
+                          pesel_number=request.data.get('pesel_number'))
         patient.save()
         return Response(status=status.HTTP_201_CREATED)
 

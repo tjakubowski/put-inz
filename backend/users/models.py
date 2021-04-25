@@ -94,7 +94,7 @@ class Specialization(models.Model):
 
 # Account model
 class User(AbstractUser):
-    role = models.OneToOneField(Role, on_delete=models.CASCADE)
+    role = models.ForeignKey(Role, blank=False, default=3, on_delete=models.CASCADE)
     username = None
     email = models.EmailField(max_length=30, unique=True, blank=False)
     date_joined = models.DateTimeField(default=timezone.now)
