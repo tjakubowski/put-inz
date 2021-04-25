@@ -42,6 +42,7 @@ const LoginForm: React.FC = () => {
                 value={value}
                 onChange={onChange}
                 onBlur={onBlur}
+                placeholder="example@mail.com"
                 error={errors.lastname?.message}
               />
             )}
@@ -60,6 +61,7 @@ const LoginForm: React.FC = () => {
                 value={value}
                 onChange={onChange}
                 onBlur={onBlur}
+                placeholder="password"
                 error={errors.email?.message}
               />
             )}

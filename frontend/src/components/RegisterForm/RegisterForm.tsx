@@ -45,6 +45,7 @@ const RegisterForm: React.FC = () => {
                 value={value}
                 onChange={onChange}
                 onBlur={onBlur}
+                placeholder="example@mail.com"
                 error={errors.lastname?.message}
               />
             )}
@@ -52,128 +53,135 @@ const RegisterForm: React.FC = () => {
         </Col>
         <Col cols={4}>
           <Controller
-              control={control}
-              name="firstname"
-              rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                      label="Imię"
-                      type="text"
-                      block
-                      value={value}
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      error={errors.email?.message}
-                  />
-              )}
+            control={control}
+            name="firstname"
+            rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                label="Imię"
+                type="text"
+                block
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                placeholder="John"
+                error={errors.email?.message}
+              />
+            )}
           />
         </Col>
         <Col cols={4}>
           <Controller
-              control={control}
-              name="lastname"
-              rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                      label="Nazwisko"
-                      type="text"
-                      block
-                      value={value}
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      error={errors.email?.message}
-                  />
-              )}
+            control={control}
+            name="lastname"
+            rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                label="Nazwisko"
+                type="text"
+                block
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                placeholder="Doe"
+                error={errors.email?.message}
+              />
+            )}
           />
         </Col>
         <Col cols={4}>
           <Controller
-              control={control}
-              name="pesel"
-              rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                      label="Pesel"
-                      type="text"
-                      block
-                      value={value}
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      error={errors.email?.message}
-                  />
-              )}
+            control={control}
+            name="pesel"
+            rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                label="Pesel"
+                type="text"
+                block
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                placeholder="94041194013"
+                error={errors.email?.message}
+              />
+            )}
           />
         </Col>
         <Col cols={9}>
           <Controller
-              control={control}
-              name="address"
-              rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                      label="Adres"
-                      type="text"
-                      block
-                      value={value}
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      error={errors.email?.message}
-                  />
-              )}
+            control={control}
+            name="address"
+            rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                label="Adres"
+                type="text"
+                block
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                placeholder="519 N May Ave. Fort Smith"
+                error={errors.email?.message}
+              />
+            )}
           />
         </Col>
         <Col cols={3}>
           <Controller
-              control={control}
-              name="zipcode"
-              rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                      label="Kod pocztowy"
-                      type="text"
-                      block
-                      value={value}
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      error={errors.email?.message}
-                  />
-              )}
+            control={control}
+            name="zipcode"
+            rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                label="Kod pocztowy"
+                type="text"
+                block
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                placeholder="72901"
+                error={errors.email?.message}
+              />
+            )}
           />
         </Col>
         <Col cols={6}>
           <Controller
-              control={control}
-              name="password"
-              rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                      label="Hasło"
-                      type="password"
-                      block
-                      value={value}
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      error={errors.email?.message}
-                  />
-              )}
+            control={control}
+            name="password"
+            rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                label="Hasło"
+                type="password"
+                block
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                placeholder="password"
+                error={errors.email?.message}
+              />
+            )}
           />
         </Col>
         <Col cols={6}>
           <Controller
-              control={control}
-              name="passwordCheck"
-              rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                      label="Powtórz hasło"
-                      type="password"
-                      block
-                      value={value}
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      error={errors.email?.message}
-                  />
-              )}
+            control={control}
+            name="passwordCheck"
+            rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                label="Powtórz hasło"
+                type="password"
+                block
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                placeholder="confirm password"
+                error={errors.email?.message}
+              />
+            )}
           />
         </Col>
 
