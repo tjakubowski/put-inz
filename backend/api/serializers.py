@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Appointment
-from users.models import Staff, Patient, User, Specialization
+from users.models import Staff, Patient, User, Specialization, Receptionist
 
 
 # User Instance serializer
@@ -92,4 +92,30 @@ class AppointmentSerializer(serializers.ModelSerializer):
             'is_confirmed',
             'created_at',
             'note'
+        )
+
+
+# Receptionist create serializer
+class ReceptionistCreateSerializer(serializers.ModelSerializer):
+    user = UserCreateSerializer()
+
+    class Meta:
+        model = Receptionist
+        fields = (
+            'user',
+            'first_name',
+            'last_name'
+        )
+
+
+# Receptionist instance serializer
+class ReceptionistSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = Receptionist
+        fields = (
+            'user',
+            'first_name',
+            'last_name'
         )
