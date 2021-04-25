@@ -16,7 +16,7 @@ class Role(models.Model):
         (PATIENT, 'patient')
     )
 
-    id = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, primary_key=True)
+    id = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, default=3, primary_key=True)
 
 
 # Specialization model

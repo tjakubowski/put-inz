@@ -1,14 +1,33 @@
 from rest_framework import serializers
 from .models import Appointment
-from users.models import Doctor, Patient, User, Specialization, Receptionist
+from users.models import Doctor, Patient, User, Specialization, Receptionist, Role
+
+
+# Specialization serializer
+class SpecializationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Specialization
+        fields = (
+            'id'
+        )
+
+
+# Role instance serializer returning role's name
+class RoleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Role
+        fields = '__all__'
 
 
 # User Instance serializer
 class UserSerializer(serializers.ModelSerializer):
+    role = RoleSerializer()
+
     class Meta:
         model = User
         fields = (
             'pk',
+            'role',
             'email',
             'date_joined'
         )
@@ -21,15 +40,6 @@ class UserCreateSerializer(serializers.ModelSerializer):
         fields = (
             'email',
             'password'
-        )
-
-
-# Specialization serializer
-class SpecializationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Specialization
-        fields = (
-            'id'
         )
 
 
