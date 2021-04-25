@@ -7,7 +7,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
 from api.serializers import PatientSerializer, PatientCreateSerializer, ReceptionistSerializer, \
-    ReceptionistCreateSerializer
+    ReceptionistCreateSerializer, DoctorCreateSerializer, DoctorSerializer
 
 
 class PatientCreateView(APIView):
@@ -81,27 +81,37 @@ class ReceptionistCreateView(APIView):
 
 
 class DoctorCreateView(APIView):
+    serializer_class = DoctorCreateSerializer
     permission_classes = [AllowAny]
 
+    def get(self, request):
+        queryset = Doctor.objects.all()
+        serializer = DoctorSerializer(queryset, many=True)
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
     def post(self, request):
-        if User.objects.filter(email=request.data.get('email')).exists():
-            res = {'error': 'user with this email exists'}
-            return Response(res, status=status.HTTP_409_CONFLICT)
+        serializer = self.serializer_class(data=request.data)
 
-        user = User(email=request.data.get('email'))
-        user.set_password(request.data.get('password'))
-        user.save()
-        staff = Doctor(user=user)
-        staff.first_name = request.data.get('first_name')
-        staff.last_name = request.data.get('last_name')
+        if serializer.is_valid():
+            user_data = serializer.data.pop('user')
+            user = User(email=user_data['email'])
+            user.set_password(user_data['password'])
+            role = Role(id=2)
+            role.save()
 
-        role = Role(id=2)
-        role.save()
-        user.role.add(role)
+            user.save()
+            user.role = role
+            user.save()
+            doctor = Doctor(
+                user=user,
+                first_name=serializer.data.get('first_name'),
+                last_name=serializer.data.get('last_name'),
+            )
+            doctor.save()
+            return Response(status=status.HTTP_201_CREATED)
 
-        user.save()
-        staff.save()
-        return Response(status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class LoginView(APIView):

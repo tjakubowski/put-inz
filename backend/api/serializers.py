@@ -33,18 +33,31 @@ class SpecializationSerializer(serializers.ModelSerializer):
         )
 
 
-# Staff instance serializer
-class StaffSerializer(serializers.ModelSerializer):
+# Doctor instance serializer
+class DoctorSerializer(serializers.ModelSerializer):
     user = UserSerializer()
-    specializations = SpecializationSerializer(source='specialization_set', many=True)
+    specializations = SpecializationSerializer(many=True)
 
     class Meta:
         model = Doctor
         fields = (
-            'user'
+            'user',
             'first_name',
             'last_name',
             'specializations'
+        )
+
+
+# Doctor create serializer
+class DoctorCreateSerializer(serializers.ModelSerializer):
+    user = UserCreateSerializer()
+
+    class Meta:
+        model = Doctor
+        fields = (
+            'user',
+            'first_name',
+            'last_name',
         )
 
 
@@ -80,7 +93,7 @@ class PatientSerializer(serializers.ModelSerializer):
 
 # Appointment instance serializer
 class AppointmentSerializer(serializers.ModelSerializer):
-    doctor = StaffSerializer()
+    doctor = DoctorSerializer()
     patient = PatientSerializer()
 
     class Meta:
