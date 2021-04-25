@@ -65,7 +65,6 @@ class ReceptionistCreateView(APIView):
             role = Role(id=1)
             role.save()
 
-            user.save()
             user.role = role
             user.save()
             receptionist = Receptionist(
@@ -117,21 +116,33 @@ class LoginView(APIView):
     serializer_class = UserLoginSerializer
 
     def post(self, request):
-        serializer = self.serializer_class(data=request.data)
+        
 
-        if serializer.is_valid():
-            email = serializer.data.get('email')
-            password = serializer.data.get('password')
-
-            user = User.objects.get(email=email)
-            if check_password(password, user.password):
+        email = request.data.get('email')
+        password = request.data.get('password')
+        if User.objects.filter(email=email).exists():
+            user= User.objects.get(email=email)
+            if(check_password(password, user.password)):
                 user_details = {}
                 user_details['email'] = user.email
                 refresh = RefreshToken.for_user(user)
                 user_details['refresh'] = str(refresh)
                 user_details['access'] = str(refresh.access_token)
-                user_details['role'] = RoleSerializer(user.role)
+                print("/n/n/n")
+                print(user.role.id)
+                role_name="PATIENT"
+                if user.role.id==1:
+                    role_name="RECEPTIONIST"
+                if user.role.id==2:
+                    role_name="DOCTOR"
+                if user.role.id==3:
+                    role_name="PATIENT"
+
+                user_details['role'] = role_name
                 return Response(user_details, status=status.HTTP_200_OK)
             else:
-                return Response({'Error': 'Wrong password'}, status=status.HTTP_401_UNAUTHORIZED)
-        return Response({'Error': 'Account not active or bad request'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'Error':'Wrong password'}, status.HTTP_403_FORBIDDEN)
+        else: 
+            return Response({'Error': 'Account not active or bad request'}, status=status.HTTP_400_BAD_REQUEST)
+
+           
