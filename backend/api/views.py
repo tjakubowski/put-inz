@@ -85,3 +85,16 @@ class AppointmentCreateView(APIView):
             return Response(status=status.HTTP_201_CREATED)
 
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+# Class based view returning info about appointment
+class AppointmentInfoView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, pk):
+        if Appointment.objects.filter(user_id=pk).exists():
+            app = Appointment.objects.filter(user_id=pk)
+            serializer = DoctorSerializer(app, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
