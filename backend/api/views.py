@@ -10,7 +10,7 @@ from django.utils.dateparse import parse_datetime
 from rest_framework.views import APIView
 from rest_framework import serializers
 from django.core import serializers
-from serializers import StaffSerializer
+from .serializers import StaffSerializer
 
 
 class AppointmentAPI(generics.GenericAPIView):

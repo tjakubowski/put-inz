@@ -18,4 +18,4 @@ class PatientDocumentation(models.Model):
     patient = models.ForeignKey('users.Patient', blank=False, on_delete=models.CASCADE)
     related_appointment = models.ForeignKey('api.Appointment', blank=False, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    description = models.CharField(blank=True, max_lenght=500)
+    description = models.CharField(blank=True, max_length=500)
