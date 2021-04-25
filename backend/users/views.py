@@ -7,7 +7,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
 from api.serializers import PatientSerializer, PatientCreateSerializer, ReceptionistSerializer, \
-    ReceptionistCreateSerializer, DoctorCreateSerializer, DoctorSerializer
+    ReceptionistCreateSerializer, DoctorCreateSerializer, DoctorSerializer, UserLoginSerializer, RoleSerializer
 
 
 class PatientCreateView(APIView):
@@ -30,7 +30,6 @@ class PatientCreateView(APIView):
             role = Role(id=3)
             role.save()
 
-            user.save()
             user.role = role
             user.save()
             patient = Patient(
@@ -100,7 +99,6 @@ class DoctorCreateView(APIView):
             role = Role(id=2)
             role.save()
 
-            user.save()
             user.role = role
             user.save()
             doctor = Doctor(
@@ -116,34 +114,24 @@ class DoctorCreateView(APIView):
 
 class LoginView(APIView):
     permission_classes = [AllowAny]
+    serializer_class = UserLoginSerializer
 
     def post(self, request):
-        try:
-            email = request.data['email']
-            password = request.data['password']
+        serializer = self.serializer_class(data=request.data)
 
-            if User.objects.filter(email=email).exists():
-                user = User.objects.get(email=email)
-                try:
+        if serializer.is_valid():
+            email = serializer.data.get('email')
+            password = serializer.data.get('password')
 
-                    if check_password(password, user.password):
-                        user_details = {}
-                        user_details['email'] = user.email
-                        refresh = RefreshToken.for_user(user)
-                        user_details['refresh'] = str(refresh)
-                        user_details['access'] = str(refresh.access_token)
-                        user_details['role'] = serializers.serialize('json', user.role.all())
-                        return Response(user_details, status=status.HTTP_200_OK)
-                    else:
-                        res = {'error': 'wrong password'}
-                        return Response(res, status=status.HTTP_403_FORBIDDEN)
-
-                except Exception as e:
-                    raise e
+            user = User.objects.get(email=email)
+            if check_password(password, user.password):
+                user_details = {}
+                user_details['email'] = user.email
+                refresh = RefreshToken.for_user(user)
+                user_details['refresh'] = str(refresh)
+                user_details['access'] = str(refresh.access_token)
+                user_details['role'] = RoleSerializer(user.role)
+                return Response(user_details, status=status.HTTP_200_OK)
             else:
-                res = {
-                    'error': 'can not authenticate with the given credentials or the account has been deactivated'}
-                return Response(res, status=status.HTTP_403_FORBIDDEN)
-        except KeyError:
-            res = {'error': 'please provide a email and a password'}
-            return Response(res)
+                return Response({'Error': 'Wrong password'}, status=status.HTTP_401_UNAUTHORIZED)
+        return Response({'Error': 'Account not active or bad request'}, status=status.HTTP_400_BAD_REQUEST)

@@ -43,6 +43,16 @@ class UserCreateSerializer(serializers.ModelSerializer):
         )
 
 
+# User login serializer
+class UserLoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'email',
+            'password'
+        )
+
+
 # Doctor instance serializer
 class DoctorSerializer(serializers.ModelSerializer):
     user = UserSerializer()
@@ -120,16 +130,14 @@ class AppointmentSerializer(serializers.ModelSerializer):
 
 # Appointment create serializer
 class AppointmentCreateSerializer(serializers.ModelSerializer):
-    #doctors_list = Doctor.objects.all()
-    #patients_list = Patient.objects.all()
-    doctor = DoctorSerializer
-    patient = PatientSerializer
+    doctor_id = serializers.IntegerField()
+    patient_id = serializers.IntegerField()
 
     class Meta:
         model = Appointment
         fields = (
-            'doctor',
-            'patient',
+            'doctor_id',
+            'patient_id',
             'appointment_date',
             'is_confirmed',
             'note'

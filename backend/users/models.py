@@ -16,7 +16,7 @@ class Role(models.Model):
         (PATIENT, 'patient')
     )
 
-    id = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, default=3, primary_key=True)
+    id = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, primary_key=True)
 
 
 # Specialization model
@@ -37,7 +37,7 @@ class Specialization(models.Model):
 
 # Account model
 class User(AbstractUser):
-    role = models.ForeignKey(Role, blank=False, default=3, on_delete=models.CASCADE)
+    role = models.ForeignKey(Role, blank=False, on_delete=models.CASCADE)
     username = None
     email = models.EmailField(max_length=30, unique=True, blank=False)
     date_joined = models.DateTimeField(default=timezone.now)

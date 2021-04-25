@@ -70,8 +70,8 @@ class AppointmentCreateView(APIView):
         serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():
-            doctor = serializer.data.get('doctor')
-            patient = serializer.data.get('patient')
+            doctor = Doctor.objects.filter(user=serializer.data.get('doctor_id')).first()
+            patient = Patient.objects.filter(user=serializer.data.get('patient_id')).first()
 
             appointment = Appointment(
                 doctor=doctor,
