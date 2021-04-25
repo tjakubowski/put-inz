@@ -45,22 +45,23 @@ class PatientCreateView(APIView):
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
-
         serializer = self.serializer_class(data=request.data)
+
         if serializer.is_valid():
-            user = User(email=serializer.data.get('email'))
-            user.set_password(serializer.data.get('password'))
+            user_data = serializer.data.pop('user')
+            user = User(email=user_data['email'])
+            user.set_password(user_data['password'])
             role = Role(id=3)
             role.save()
+
             user.save()
             user.role = role
             user.save()
             patient = Patient(user=user,
-                              first_name=request.data.get('first_name'),
-                              last_name=request.data.get('last_name'),
-                              pesel_number=request.data.get('pesel_number'),
-                              phone_number=request.data.get('phone_number')
-                              )
+                              first_name=serializer.data.get('first_name'),
+                              last_name=serializer.data.get('last_name'),
+                              phone_number=serializer.data.get('phone_number'),
+                              pesel_number=serializer.data.get('pesel_number'))
             patient.save()
             return Response(status=status.HTTP_201_CREATED)
 
@@ -75,8 +76,7 @@ class ReceptionistCreateView(APIView):
             res = {'error': 'user with this email exists'}
             return Response(res, status=status.HTTP_409_CONFLICT)
 
-        user = User()
-        user.email = request.data.get('email')
+        user = User(email=request.data.get('email'))
         user.set_password(request.data.get('password'))
         staff = Staff(user=user)
         staff.first_name = request.data.get('first_name')
