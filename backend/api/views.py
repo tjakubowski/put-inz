@@ -7,23 +7,7 @@ from rest_framework import status
 from users.models import Doctor, Receptionist, User, Patient
 from django.utils.dateparse import parse_datetime
 from rest_framework.views import APIView
-from .serializers import DoctorSerializer, PatientSerializer
-
-
-class AppointmentAPI(generics.GenericAPIView):
-    permission_classes = [AllowAny]
-
-    def post(self, request):
-        appointment = Appointment()
-        date = request.data.get('appointment_date')
-        appointment.appointment_date = parse_datetime(date)
-        doctor = Doctor.objects.filter(user_id=request.data.get('doctor')).first()
-        appointment.doctor = doctor
-        patient = Patient.objects.filter(user_id=request.data.get('patient')).first()
-        appointment.patient = patient
-        appointment.note = request.data.get('note')
-        appointment.save()
-        return Response(status=status.HTTP_201_CREATED)
+from .serializers import DoctorSerializer, PatientSerializer, AppointmentCreateSerializer, AppointmentSerializer
 
 
 class PatientInfoView(APIView):
@@ -63,10 +47,41 @@ class DoctorInfoView(APIView):
 
 # Class based view returning full Staff list
 class DoctorListView(APIView):
-
+    permission_classes = [AllowAny]
     def get(self, request):
         queryset = Doctor.objects.all()
         serializer = DoctorSerializer(queryset, many=True)
 
         return Response(data=serializer.data)
 
+
+# Class based Appointment create view
+class AppointmentCreateView(APIView):
+    permission_classes = [AllowAny]
+    serializer_class = AppointmentCreateSerializer
+
+    def get(self, request):
+        queryset = Appointment.objects.all()
+        serializer = AppointmentSerializer(queryset, many=True)
+
+        return Response(data=serializer.data)
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            doctor = serializer.data.get('doctor')
+            patient = serializer.data.get('patient')
+
+            appointment = Appointment(
+                doctor=doctor,
+                patient=patient,
+                appointment_date=serializer.data.get('appointment_date'),
+                is_confirmed=False,
+                note=serializer.data.get('note')
+            )
+            appointment.save()
+
+            return Response(status=status.HTTP_201_CREATED)
+
+        return Response(status=status.HTTP_400_BAD_REQUEST)

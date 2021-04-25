@@ -118,6 +118,24 @@ class AppointmentSerializer(serializers.ModelSerializer):
         )
 
 
+# Appointment create serializer
+class AppointmentCreateSerializer(serializers.ModelSerializer):
+    #doctors_list = Doctor.objects.all()
+    #patients_list = Patient.objects.all()
+    doctor = DoctorSerializer
+    patient = PatientSerializer
+
+    class Meta:
+        model = Appointment
+        fields = (
+            'doctor',
+            'patient',
+            'appointment_date',
+            'is_confirmed',
+            'note'
+        )
+
+
 # Receptionist create serializer
 class ReceptionistCreateSerializer(serializers.ModelSerializer):
     user = UserCreateSerializer()
