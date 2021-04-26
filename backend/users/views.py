@@ -128,8 +128,6 @@ class LoginView(APIView):
                 refresh = RefreshToken.for_user(user)
                 user_details['refresh'] = str(refresh)
                 user_details['access'] = str(refresh.access_token)
-                print("/n/n/n")
-                print(user.role.id)
                 role_name="PATIENT"
                 if user.role.id==1:
                     role_name="RECEPTIONIST"
