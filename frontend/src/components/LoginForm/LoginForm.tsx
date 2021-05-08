@@ -1,30 +1,49 @@
-import React, { useContext } from 'react';
-import { ThemeContext } from 'styled-components';
+import React, { useContext, useState } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 import { useForm, Controller } from 'react-hook-form';
 
 import { Col, Row } from '../Grid';
 import TextInput from '../Input/TextInput';
 import Button from '../Button';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { login } from '../../store/auth/actions';
+import { useHistory } from 'react-router-dom';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { RouterPaths } from '../../router/paths';
+
+const StyledError = styled.p`
+  color: ${({theme}) => theme.colors.error};
+  margin: 0;
+`
 
 interface IFormData {
-  firstname: string;
-  lastname: string;
   email: string;
-  pesel: string;
-  radiotest: string;
-  createAccount: string;
   password: string;
 }
 
 const LoginForm: React.FC = () => {
+  const isPending = useAppSelector((state) => state.auth.isPending);
   const theme = useContext(ThemeContext);
+  const dispatch = useAppDispatch();
+  const history = useHistory();
+  const [globalError, setGlobalError] = useState('');
+
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = useForm<IFormData>();
 
-  const onSubmit = (data: IFormData) => console.log(data);
+  const onSubmit = async (data: IFormData) => {
+    dispatch(login(data))
+      .then(unwrapResult)
+      .then(() => {
+        history.push(RouterPaths.Homepage);
+      })
+      .catch(() => {
+        setGlobalError('Niepoprawne dane logowania lub użytkownik nie istnieje')
+      });
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -43,7 +62,7 @@ const LoginForm: React.FC = () => {
                 onChange={onChange}
                 onBlur={onBlur}
                 placeholder="example@mail.com"
-                error={errors.lastname?.message}
+                error={errors.email?.message}
               />
             )}
           />
@@ -62,14 +81,23 @@ const LoginForm: React.FC = () => {
                 onChange={onChange}
                 onBlur={onBlur}
                 placeholder="password"
-                error={errors.email?.message}
+                error={errors.password?.message}
               />
             )}
           />
         </Col>
 
+        {globalError && (
+          <Col cols={12}><StyledError>{globalError}</StyledError></Col>
+        )}
+
         <Col cols={12}>
-          <Button type="submit" block color={theme.colors.primary}>
+          <Button
+            type="submit"
+            block
+            color={theme.colors.primary}
+            disabled={isPending}
+          >
             Login
           </Button>
         </Col>
