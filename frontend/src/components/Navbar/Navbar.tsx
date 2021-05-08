@@ -1,6 +1,8 @@
 import React from 'react';
-import { Col, Container, Row } from '../Grid';
+import { Link } from 'react-router-dom';
+import {  Container, Row } from '../Grid';
 import { StyledContainer, StyledLogo } from './styled';
+import { RouterPaths } from '../../router/paths';
 
 interface INavbarProps {}
 
@@ -9,10 +11,8 @@ const Navbar: React.FC<INavbarProps> = ({ children }) => {
     <StyledContainer>
       <Container>
         <Row justify="space-between">
-          <Col>
-            <StyledLogo>Logo</StyledLogo>
-          </Col>
-          <Col>{children}</Col>
+          <Link to={RouterPaths.Homepage}><StyledLogo>Logo</StyledLogo></Link>
+          <div>{children}</div>
         </Row>
       </Container>
     </StyledContainer>

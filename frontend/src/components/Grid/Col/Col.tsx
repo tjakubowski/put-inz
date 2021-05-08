@@ -22,6 +22,7 @@ export interface IColProps {
   lg?: ColumnSize;
   xl?: ColumnSize;
   xxl?: ColumnSize;
+  shrink?: boolean;
 }
 
 const Col: React.FC<IColProps> = ({ children, ...props }) => {

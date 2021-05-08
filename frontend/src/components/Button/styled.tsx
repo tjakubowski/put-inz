@@ -24,6 +24,7 @@ export const StyledButton = styled.button<IStyledButtonProps>`
   border-radius: ${({ theme }) => theme.button.borderRadius};
   padding: 1.2rem 1.6rem;
   border-width: 1px;
+  border-style: solid;
   cursor: pointer;
   font-weight: 700;
   transition: background-color 0.2s;
