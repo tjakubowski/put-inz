@@ -24,6 +24,7 @@ interface IFormData {
   pesel: string;
   createAccount: string;
   doctor: any;
+  note: string;
   date: Dayjs;
 }
 
@@ -162,6 +163,23 @@ const ReservationForm: React.FC = () => {
                 />
               );
             }}
+          />
+        </Col>
+        <Col cols={12}>
+          <Controller
+            control={control}
+            name="note"
+            rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                label="Dodatkowa notatka"
+                block
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                error={errors.note?.message}
+              />
+            )}
           />
         </Col>
         <Col cols={12}>
