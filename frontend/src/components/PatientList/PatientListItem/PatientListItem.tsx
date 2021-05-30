@@ -11,7 +11,7 @@ export interface IListItemProps {
   register_date?: string;
 }
 
-const ListItem: React.VFC<IListItemProps> = ({
+const PatientListItem: React.VFC<IListItemProps> = ({
   name,
   phone,
   city,
@@ -35,4 +35,4 @@ const ListItem: React.VFC<IListItemProps> = ({
   );
 };
 
-export default ListItem;
+export default PatientListItem;
