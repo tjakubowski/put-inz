@@ -1,4 +1,4 @@
-export enum RouterPaths {
+export enum Paths {
   Homepage = '/',
   Login = '/login',
   Register = '/register',

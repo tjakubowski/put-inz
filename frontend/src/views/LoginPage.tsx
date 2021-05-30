@@ -3,7 +3,7 @@ import DefaultLayout from '../layouts/DefaultLayout';
 import { Container } from '../components/Grid';
 import LoginForm from '../components/LoginForm';
 import { useAppSelector } from '../hooks';
-import { RouterPaths } from '../router/paths';
+import { Paths } from '../types/router';
 import { useHistory } from 'react-router-dom';
 
 const LoginPage = () => {
@@ -11,7 +11,7 @@ const LoginPage = () => {
   const history = useHistory();
 
   if (isAuthenticated) {
-    history.replace(RouterPaths.Homepage);
+    history.replace(Paths.Homepage);
   }
 
   return (

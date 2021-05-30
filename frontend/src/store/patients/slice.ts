@@ -2,15 +2,15 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchAll, fetchOne } from './actions';
 
 export type Patient = {
-  firstname: string,
-  lastname: string,
-  pesel: string,
-  phone: string,
-}
+  firstname: string;
+  lastname: string;
+  pesel: string;
+  phone: string;
+};
 
 interface PatientsState {
-  patient?: Patient | null,
-  patients: Patient[],
+  patient?: Patient | null;
+  patients: Patient[];
 }
 
 const initialState: PatientsState = {
@@ -27,7 +27,7 @@ export const patientsSlice = createSlice({
       state.patient = action.payload;
     });
     builder.addCase(fetchAll.fulfilled, (state, action) => {
-      state.patients = action.payload.patients;
+      state.patients = action.payload;
     });
   },
 });

@@ -1,47 +1,9 @@
-export enum UserRole {
-  Patient = 'PATIENT',
-  Doctor = 'DOCTOR',
-  Receptionist = 'RECEPTIONIST',
-}
+import { refreshTimeoutOffset } from '../constants/auth';
 
-export interface RegisterData {
-  email: string;
-  password: string;
-}
+export const getExpireTimeWithOffset = (expireInSeconds: number) => {
+  const expireInMilliseconds = expireInSeconds * 1000;
 
-export interface LoginData {
-  email: string;
-  password: string;
-}
+  if (expireInMilliseconds < refreshTimeoutOffset) return expireInMilliseconds * 0.5;
 
-export interface RefreshTokenData {
-  token: string;
-}
-
-export interface RegisterResponse {
-  token: string;
-  refreshToken: string;
-  role: string;
-}
-
-export interface LoginResponse {
-  token: string;
-  refreshToken: string;
-  role: string;
-}
-
-export interface RefreshTokenResponse {
-  token: string;
-}
-
-export const getJwtToken = (): string | null => {
-  return localStorage.getItem('token');
-};
-
-export const setJwtToken = (token: string) => {
-  return localStorage.setItem('token', token);
-};
-
-export const resetJwtToken = () => {
-  return localStorage.removeItem('token');
+  return expireInMilliseconds - refreshTimeoutOffset;
 };

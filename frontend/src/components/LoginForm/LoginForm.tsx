@@ -9,12 +9,12 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { login } from '../../store/auth/actions';
 import { useHistory } from 'react-router-dom';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { RouterPaths } from '../../router/paths';
+import { Paths } from '../../types/router';
 
 const StyledError = styled.p`
-  color: ${({theme}) => theme.colors.error};
+  color: ${({ theme }) => theme.colors.error};
   margin: 0;
-`
+`;
 
 interface IFormData {
   email: string;
@@ -38,10 +38,10 @@ const LoginForm: React.FC = () => {
     dispatch(login(data))
       .then(unwrapResult)
       .then(() => {
-        history.push(RouterPaths.Homepage);
+        history.push(Paths.Homepage);
       })
       .catch(() => {
-        setGlobalError('Niepoprawne dane logowania lub użytkownik nie istnieje')
+        setGlobalError('Niepoprawne dane logowania lub użytkownik nie istnieje');
       });
   };
 
@@ -88,16 +88,13 @@ const LoginForm: React.FC = () => {
         </Col>
 
         {globalError && (
-          <Col cols={12}><StyledError>{globalError}</StyledError></Col>
+          <Col cols={12}>
+            <StyledError>{globalError}</StyledError>
+          </Col>
         )}
 
         <Col cols={12}>
-          <Button
-            type="submit"
-            block
-            color={theme.colors.primary}
-            disabled={isPending}
-          >
+          <Button type="submit" block color={theme.colors.primary} disabled={isPending}>
             Login
           </Button>
         </Col>

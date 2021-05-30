@@ -1,53 +1,49 @@
-import { AuthService } from '../../services/';
+import * as authService from '../../api/services/auth.service';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import {
-  getJwtToken,
-  LoginData,
-  RefreshTokenData,
-  RegisterData,
-  setJwtToken,
-} from '../../utils/auth';
+import { setAuthHeaders } from '../../api/http';
+import { getExpireTimeWithOffset } from '../../utils/auth';
+import { AppDispatch, RootState } from '../index';
+import { LoginPayload } from '../../types/auth';
+
+const delayRefresh = (expiresIn: number, dispatch: AppDispatch, getState: () => RootState) => {
+  setTimeout(() => {
+    const { auth } = getState();
+
+    if (auth.isAuthenticated) {
+      dispatch(refreshToken());
+    }
+  }, getExpireTimeWithOffset(expiresIn));
+};
 
 export const login = createAsyncThunk(
   'auth/login',
-  async (loginData: LoginData, { rejectWithValue }) => {
-    try {
-      const response = await AuthService.login(loginData);
-      const { token } = response;
-      setJwtToken(token);
-      return response;
-    } catch (e) {
-      return rejectWithValue('');
-    }
+  async (credentials: LoginPayload, { dispatch, getState }) => {
+    const result = await authService.login(credentials);
+    const { accessToken, expiresIn } = result;
+
+    setAuthHeaders(accessToken);
+    delayRefresh(expiresIn, dispatch, getState as () => RootState);
+
+    return result;
   },
 );
 
-export const register = createAsyncThunk(
-  'auth/register',
-  async (registerData: RegisterData) => {
-    const { token } = await AuthService.register(registerData);
-    setJwtToken(token);
+export const logout = createAsyncThunk('auth/logout', async () => {
+  const result = await authService.logout();
+  setAuthHeaders('');
 
-    return token;
-  },
-);
+  return result;
+});
 
 export const refreshToken = createAsyncThunk(
   'auth/refreshToken',
-  async (refreshTokenData: RefreshTokenData) => {
-    const { token } = await AuthService.refreshToken(refreshTokenData);
-    setJwtToken(token);
+  async (data, { dispatch, getState }) => {
+    const result = await authService.refreshToken();
+    const { accessToken, expiresIn } = result;
 
-    return token;
-  },
-);
+    setAuthHeaders(accessToken);
+    delayRefresh(expiresIn, dispatch, getState as () => RootState);
 
-export const loadToken = createAsyncThunk(
-  'auth/loadToken',
-  async () => {
-    const token = getJwtToken();
-    console.log(token);
-
-    return { token };
+    return result;
   },
 );
