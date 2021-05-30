@@ -9,7 +9,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from api.serializers import PatientSerializer, PatientCreateSerializer, ReceptionistSerializer, \
     ReceptionistCreateSerializer, DoctorCreateSerializer, DoctorSerializer, UserLoginSerializer, RoleSerializer
 import jwt
-from backend.settings import SECRET_KEY
+from backend.settings import SECRET_KEY, SIMPLE_JWT
 
 
 class PatientCreateView(APIView):
@@ -170,8 +170,9 @@ class Login(APIView):
                 if user.role.id==3:
                     role_name="PATIENT"
                 user_details['role'] = role_name
+                user_details['expire']=int(SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'].total_seconds())
                 response = Response(user_details, status=status.HTTP_200_OK)
-                response.set_cookie('refresh_token',str(refresh), httponly=True, secure=False, expires=300, samesite=None, max_age=300, path="/")
+                response.set_cookie('refresh_token',str(refresh), httponly=True, secure=False,  samesite=None, max_age=300, path="/",expires=int(SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'].total_seconds()))
                 return response
             else:
                 return Response({'Error':'Wrong password'}, status.HTTP_403_FORBIDDEN)
@@ -189,9 +190,9 @@ class Refresh(APIView):
             refresh = RefreshToken.for_user(user)
             user_details={}
             user_details['access']=str(refresh.access_token)
-            user_details['expires']=300
+            user_details['expire']=int(SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'].total_seconds())
             response = Response(user_details, status=status.HTTP_200_OK)
-            response.set_cookie('refresh_token', str(refresh), httponly=True, secure=False, expires=300, samesite=None, max_age=300, path="/")
+            response.set_cookie('refresh_token', str(refresh), httponly=True, secure=False, expires=int(SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'].total_seconds()), samesite=None, max_age=300, path="/")
             return response
         else:
             return Response({'Error':'no refresh_token cookie'}, status=status.HTTP_400_BAD_REQUEST)
