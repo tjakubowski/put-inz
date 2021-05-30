@@ -3,7 +3,7 @@ from django.urls import path
 from .views import PatientListView, PatientInfoView, DoctorInfoView, AppointmentInfoView, DoctorListView
 
 urlpatterns = [
-    path('appointments', AppointmentCreateView.as_view(), name='AppointmentList'),
+    path('appointments', AppointmentInfoView.as_view(), name='AppointmentList'),
     path('appointments/<int:pk>', AppointmentInfoView.as_view(), name='AppointmentInfo'),
     path('patients', PatientListView.as_view(), name='PatientList'),
     path('patients/<int:pk>', PatientInfoView.as_view(), name='PatientInfoView'),

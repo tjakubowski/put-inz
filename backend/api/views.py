@@ -113,11 +113,13 @@ class AppointmentCreateView(APIView):
 
 # Class based view returning info about appointment
 class AppointmentInfoView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
+    serializer_class = AppointmentCreateSerializer
 
     def get(self, request):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             if request.user.role.id == 1:
+
                 if Appointment.objects.count() == 1:
                     queryset = Appointment.objects.first()
                     serializer = AppointmentSerializer(queryset, many=False)
@@ -149,10 +151,28 @@ class AppointmentInfoView(APIView):
                         appointment = Appointment.objects.filter(patient=patient)
                         serializer = AppointmentSerializer(appointment, many=True)
                     return Response(serializer.data, status=status.HTTP_200_OK)
-
+            return Response(status=status.HTTP_404_NOT_FOUND)
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            doctor = Doctor.objects.get(user=serializer.data.get('doctor_id'))
+            patient = Patient.objects.get(user=serializer.data.get('patient_id'))
+
+            appointment = Appointment(
+                doctor=doctor,
+                patient=patient,
+                appointment_date=serializer.data.get('appointment_date'),
+                is_confirmed=False,
+                note=serializer.data.get('note')
+            )
+            appointment.save()
+
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 # class DoctorAppointmentListView(APIView):
 #     permission_classes = [AllowAny]
