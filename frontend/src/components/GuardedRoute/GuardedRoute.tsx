@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, RouteProps, useHistory } from 'react-router-dom';
-import { UserRole } from '../../types/auth';
-import { Paths } from '../../types/router';
-import { useAppSelector } from '../../hooks';
+import { UserRole } from 'types/auth';
+import { Paths } from 'types/router';
+import { useAppSelector } from 'hooks';
 
 export interface IGuardedRouteProps extends RouteProps {
   permittedRoles: UserRole[];

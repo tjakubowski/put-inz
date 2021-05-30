@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 import { useForm, Controller } from 'react-hook-form';
 
-import { Col, Row } from '../Grid';
-import TextInput from '../Input/TextInput';
-import Button from '../Button';
+import { Col, Row } from 'components/Grid';
+import TextInput from 'components/Input/TextInput';
+import Button from 'components/Button';
 
 interface IFormData {
   firstname: string;

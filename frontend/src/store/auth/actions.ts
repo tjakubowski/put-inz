@@ -1,9 +1,9 @@
-import * as authService from '../../api/services/auth.service';
+import * as authService from 'api/services/auth.service';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { setAuthHeaders } from '../../api/http';
-import { getExpireTimeWithOffset } from '../../utils/auth';
-import { AppDispatch, RootState } from '../index';
-import { LoginPayload } from '../../types/auth';
+import { setAuthHeaders } from 'api/http';
+import { getExpireTimeWithOffset } from 'utils/auth';
+import { AppDispatch, RootState } from 'store';
+import { LoginPayload } from 'types/auth';
 
 const delayRefresh = (expiresIn: number, dispatch: AppDispatch, getState: () => RootState) => {
   setTimeout(() => {

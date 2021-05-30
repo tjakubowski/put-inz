@@ -1,4 +1,4 @@
-import { refreshTimeoutOffset } from '../constants/auth';
+import { refreshTimeoutOffset } from 'constants/auth';
 
 export const getExpireTimeWithOffset = (expireInSeconds: number) => {
   const expireInMilliseconds = expireInSeconds * 1000;

@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/all';
-import {
-  StyledIcon,
-  StyledInput,
-  StyledInputContainer,
-  StyledLabel,
-} from './styled';
-import Error from '../Error';
+import { StyledIcon, StyledInput, StyledInputContainer, StyledLabel } from './styled';
+import Error from 'components/Input/Error';
 
 export interface ICheckboxProps {
   name: string;
@@ -26,11 +21,7 @@ const Checkbox: React.FC<ICheckboxProps> = ({
   checked = false,
 }) => {
   const [isChecked, check] = useState(checked);
-  const icon = isChecked ? (
-    <MdCheckBox size={24} />
-  ) : (
-    <MdCheckBoxOutlineBlank size={24} />
-  );
+  const icon = isChecked ? <MdCheckBox size={24} /> : <MdCheckBoxOutlineBlank size={24} />;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     check(!isChecked);

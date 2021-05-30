@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Doctor } from './slice';
-import api from '../../api';
+import api from 'api';
 
 export const fetchOne = createAsyncThunk(
   'doctor/fetchOne',

@@ -1,9 +1,9 @@
 import React from 'react';
-import DefaultLayout from '../layouts/DefaultLayout';
-import { Container } from '../components/Grid';
-import LoginForm from '../components/LoginForm';
-import { useAppSelector } from '../hooks';
-import { Paths } from '../types/router';
+import DefaultLayout from 'layouts/DefaultLayout';
+import { Container } from 'components/Grid';
+import LoginForm from 'components/LoginForm';
+import { useAppSelector } from 'hooks';
+import { Paths } from 'types/router';
 import { useHistory } from 'react-router-dom';
 
 const LoginPage = () => {

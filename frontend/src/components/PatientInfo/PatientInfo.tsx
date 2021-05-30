@@ -1,6 +1,6 @@
 import React from 'react';
-import Card from '../Card';
-import { Row, Col } from '../Grid';
+import Card from 'components/Card';
+import { Row, Col } from 'components/Grid';
 import { DataCell, DataCellText, DataDiv } from './styled';
 
 const PatientInfo: React.FC = () => {

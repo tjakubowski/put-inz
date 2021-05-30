@@ -1,9 +1,9 @@
 import React from 'react';
-import Card from '../Card';
-import Avatar from '../Avatar';
+import Card from 'components/Card';
+import Avatar from 'components/Avatar';
 import { CenteredDiv, DataDiv, StyledName } from './styled';
-import Button from '../Button';
-import theme from '../../theme/theme';
+import Button from 'components/Button';
+import theme from 'theme/theme';
 
 const PatientCard: React.FC = () => {
   return (

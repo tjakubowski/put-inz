@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import Button from '../components/Button';
-import Navbar from '../components/Navbar';
-import { Paths } from '../types/router';
-import { useAppSelector } from '../hooks';
+import Button from 'components/Button';
+import Navbar from 'components/Navbar';
+import { Paths } from 'types/router';
+import { useAppSelector } from 'hooks';
 import { ThemeContext } from 'styled-components';
 
 const DefaultLayout: React.FC = ({ children }) => {

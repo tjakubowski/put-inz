@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { login, logout, refreshToken } from './actions';
-import { isFulfilledAction, isPendingAction, isRejectedAction } from '../../utils/actions';
-import { UserRole } from '../../types/auth';
+import { isFulfilledAction, isPendingAction, isRejectedAction } from 'utils/actions';
+import { UserRole } from 'types/auth';
 
 export interface AuthState {
   isAuthenticated: boolean;

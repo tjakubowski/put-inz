@@ -2,14 +2,14 @@ import React, { useContext, useState } from 'react';
 import styled, { ThemeContext } from 'styled-components';
 import { useForm, Controller } from 'react-hook-form';
 
-import { Col, Row } from '../Grid';
-import TextInput from '../Input/TextInput';
-import Button from '../Button';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { login } from '../../store/auth/actions';
+import { Col, Row } from 'components/Grid';
+import TextInput from 'components/Input/TextInput';
+import Button from 'components/Button';
+import { useAppDispatch, useAppSelector } from 'hooks';
+import { login } from 'store/auth/actions';
 import { useHistory } from 'react-router-dom';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { Paths } from '../../types/router';
+import { Paths } from 'types/router';
 
 const StyledError = styled.p`
   color: ${({ theme }) => theme.colors.error};

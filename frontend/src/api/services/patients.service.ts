@@ -1,5 +1,5 @@
-import http from '../http';
-import { Patient } from '../../store/patients/slice';
+import http from 'api/http';
+import { Patient } from 'store/patients/slice';
 
 export const getAll = async (): Promise<Patient[]> => {
   const { data } = await http.get(`/api/patients`);

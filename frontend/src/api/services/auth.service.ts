@@ -1,11 +1,11 @@
-import http from '../http';
+import http from 'api/http';
 import {
   LoginPayload,
   LoginResponse,
   RefreshTokenResponse,
   RegisterPayload,
   RegisterResponse,
-} from '../../types/auth';
+} from 'types/auth';
 
 export const register = async (payload: RegisterPayload): Promise<RegisterResponse> => {
   const { data } = await http.post(`/auth/login`, { ...payload });

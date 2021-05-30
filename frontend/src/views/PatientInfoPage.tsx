@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
-import DefaultLayout from '../layouts/DefaultLayout';
-import { Col, Container, Row } from '../components/Grid';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import {  fetchOne } from '../store/patients/actions';
+import DefaultLayout from 'layouts/DefaultLayout';
+import { Col, Container, Row } from 'components/Grid';
+import { useAppDispatch, useAppSelector } from 'hooks';
+import { fetchOne } from 'store/patients/actions';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface ParamTypes {
-  id?: string
+  id?: string;
 }
 
 const StyledLabel = styled.p`
   font-weight: 700;
-`
+`;
 
 const PatientInfoPage = () => {
   const { id } = useParams<ParamTypes>();
@@ -20,16 +20,15 @@ const PatientInfoPage = () => {
   const patient = useAppSelector((state) => state.patients.patient);
 
   useEffect(() => {
-    dispatch(fetchOne(id!))
+    dispatch(fetchOne(id!));
   }, [dispatch, id]);
 
   return (
     <DefaultLayout>
       <Container>
-
         <Row>
           <Col cols={12}>
-            <h2>{patient && `${patient.firstname} ${patient.lastname}` }</h2>
+            <h2>{patient && `${patient.firstname} ${patient.lastname}`}</h2>
           </Col>
           <Col>
             <StyledLabel>Pesel</StyledLabel>

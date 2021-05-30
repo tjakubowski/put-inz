@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
-import Avatar from '../../Avatar';
+import React from 'react';
+import Avatar from 'components/Avatar';
 import { StyledRow, StyledCell } from './styled';
-import theme from '../../../theme/theme';
-import Button from '../../Button';
+import theme from 'theme/theme';
+import Button from 'components/Button';
 
 export interface IListItemProps {
   name?: string;

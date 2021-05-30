@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Row } from '../Grid';
+import { Container, Row } from 'components/Grid';
 import { StyledContainer, StyledLogo } from './styled';
-import { Paths } from '../../types/router';
+import { Paths } from 'types/router';
 
 interface INavbarProps {}
 
