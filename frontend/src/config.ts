@@ -1,7 +1,9 @@
+import { getEnvironmentVariable } from './utils/env';
+
 const config = {
   api: {
-    hostname: process.env.REACT_APP_API_HOSTNAME,
-    port: process.env.REACT_APP_API_PORT,
+    hostname: getEnvironmentVariable('API_HOSTNAME'),
+    port: getEnvironmentVariable('API_PORT'),
   },
 };
 

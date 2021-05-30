@@ -1,7 +1,7 @@
 import React from 'react';
-import DefaultLayout from '../layouts/DefaultLayout';
-import { Container } from '../components/Grid';
-import DoctorList from '../components/DoctorList';
+import DefaultLayout from 'layouts/DefaultLayout';
+import { Container } from 'components/Grid';
+import DoctorList from 'components/DoctorList';
 
 const DoctorsPage = () => {
   return (

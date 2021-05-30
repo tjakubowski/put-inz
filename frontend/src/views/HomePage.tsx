@@ -1,7 +1,7 @@
 import React from 'react';
-import DefaultLayout from '../layouts/DefaultLayout';
-import { Container } from '../components/Grid';
-import ReservationForm from '../components/ReservationForm';
+import DefaultLayout from 'layouts/DefaultLayout';
+import { Container } from 'components/Grid';
+import ReservationForm from 'components/ReservationForm';
 
 const HomePage = () => {
   return (

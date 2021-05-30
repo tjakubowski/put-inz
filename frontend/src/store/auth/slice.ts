@@ -1,21 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loadToken, login } from './actions';
-import { UserRole } from '../../utils/auth';
+import { login, logout, refreshToken } from './actions';
+import { isFulfilledAction, isPendingAction, isRejectedAction } from 'utils/actions';
+import { UserRole } from 'types/auth';
 
-interface AuthState {
-  token: string | null;
-  refreshToken: string | null;
-  role: UserRole | null;
-  isPending: boolean;
+export interface AuthState {
   isAuthenticated: boolean;
+  isPending: boolean;
+  role: UserRole | null;
 }
 
 const initialState: AuthState = {
-  token: null,
-  refreshToken: null,
-  role: null,
-  isPending: false,
   isAuthenticated: false,
+  isPending: false,
+  role: null,
 };
 
 export const authSlice = createSlice({
@@ -23,20 +20,25 @@ export const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(loadToken.fulfilled, (state, action) => {
-      state.token = action.payload.token;
-    });
-    builder.addCase(login.pending, (state) => {
-      state.isPending = true;
-    });
     builder.addCase(login.fulfilled, (state, action) => {
       state.isAuthenticated = true;
-      state.isPending = false;
-      state.token = action.payload.token;
-      state.refreshToken = action.payload.refreshToken;
-      state.role = action.payload.role as UserRole;
+      state.role = action.payload.role;
     });
-    builder.addCase(login.rejected, (state) => {
+    builder.addCase(refreshToken.fulfilled, (state, action) => {
+      state.isAuthenticated = true;
+      state.role = action.payload.role;
+    });
+    builder.addCase(logout.fulfilled, (state) => {
+      state.isAuthenticated = false;
+      state.role = null;
+    });
+    builder.addMatcher(isPendingAction, (state) => {
+      state.isPending = true;
+    });
+    builder.addMatcher(isRejectedAction, (state) => {
+      state.isPending = false;
+    });
+    builder.addMatcher(isFulfilledAction, (state) => {
       state.isPending = false;
     });
   },

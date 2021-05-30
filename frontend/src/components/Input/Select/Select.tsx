@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { default as ReactSelect, NamedProps, Theme } from 'react-select';
 import { ThemeContext } from 'styled-components';
-import Error from '../Error';
+import Error from 'components/Input/Error';
 import { StyledLabel, StyledSpan } from './styled';
 
 export interface ISelectProps extends NamedProps {

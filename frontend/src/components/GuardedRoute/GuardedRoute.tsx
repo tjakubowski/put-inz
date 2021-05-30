@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, RouteProps, useHistory } from 'react-router-dom';
-import { UserRole } from '../../utils/auth';
-import { RouterPaths } from '../../router/paths';
-import { useAppSelector } from '../../hooks';
+import { UserRole } from 'types/auth';
+import { Paths } from 'types/router';
+import { useAppSelector } from 'hooks';
 
 export interface IGuardedRouteProps extends RouteProps {
   permittedRoles: UserRole[];
-  redirectPath?: RouterPaths;
+  redirectPath?: Paths;
 }
 
 const GuardedRoute: React.VFC<IGuardedRouteProps> = ({
@@ -14,7 +14,7 @@ const GuardedRoute: React.VFC<IGuardedRouteProps> = ({
   redirectPath = '/login',
   ...props
 }) => {
-  const role = useAppSelector((state) => state.auth.role);
+  const role = useAppSelector(({ auth }) => auth.role);
   const history = useHistory();
 
   if (!role || !permittedRoles.includes(role)) {

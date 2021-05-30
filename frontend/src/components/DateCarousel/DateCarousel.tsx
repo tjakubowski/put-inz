@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from 'styled-components';
-import Button from '../Button';
+import Button from 'components/Button';
 import {
   MdKeyboardArrowLeft as ArrowLeft,
   MdKeyboardArrowRight as ArrowRight,
@@ -8,7 +8,7 @@ import {
 import { StyledContainer, StyledContent, StyledHeader } from './styled';
 import { default as Column } from './DateCarouselColumn';
 import dayjs, { Dayjs } from 'dayjs';
-import { DatesGroup, getGroupedDatesByDayBetween } from '../../utils/date';
+import { DatesGroup, getGroupedDatesByDayBetween } from 'utils/date';
 
 export interface IDateCarouselProps {
   columns?: number;
@@ -51,13 +51,7 @@ const DateCarousel: React.FC<IDateCarouselProps> = ({
   useEffect(() => {
     setPreviousButtonDisabled(startDay.isToday());
 
-    setDateGroups(
-      getGroupedDatesByDayBetween(
-        dates,
-        startDay,
-        startDay.add(columns, 'day'),
-      ),
-    );
+    setDateGroups(getGroupedDatesByDayBetween(dates, startDay, startDay.add(columns, 'day')));
   }, [startDay, columns, dates]);
 
   return (

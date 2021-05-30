@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import DefaultLayout from '../layouts/DefaultLayout';
-import { Col, Container, Row } from '../components/Grid';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { fetchOne } from '../store/doctors/actions';
+import DefaultLayout from 'layouts/DefaultLayout';
+import { Col, Container, Row } from 'components/Grid';
+import { useAppDispatch, useAppSelector } from 'hooks';
+import { fetchOne } from 'store/doctors/actions';
 import { useParams } from 'react-router-dom';
 
 interface ParamTypes {
-  id?: string
+  id?: string;
 }
 
 const DoctorInfoPage = () => {
@@ -23,7 +23,7 @@ const DoctorInfoPage = () => {
       <Container>
         <Row>
           <Col cols={12}>
-            <h2>{doctor && `${doctor.firstname} ${doctor.lastname}` }</h2>
+            <h2>{doctor && `${doctor.firstname} ${doctor.lastname}`}</h2>
           </Col>
         </Row>
       </Container>

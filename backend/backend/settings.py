@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    #'django.contrib.sessions.backends.signed_cookies',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api.apps.ApiConfig',
@@ -172,3 +173,8 @@ CORS_ALLOWED_ORIGINS = [
     'https://localhost:3000',
     'https://127.0.0.1:3000'
 ]
+
+#HTTP COOKIE
+SESSION_COOKIE_HTTPONLY = False
+
+#CSRF_COOKIE_HTTPONLY = False
