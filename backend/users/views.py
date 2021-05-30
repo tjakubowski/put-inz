@@ -1,5 +1,3 @@
-import jwt
-from rest_framework import response
 from .models import User, Patient, Doctor, Role, Specialization, Receptionist
 from django.contrib.auth.hashers import make_password
 from rest_framework.views import APIView
@@ -152,7 +150,7 @@ class LoginView(APIView):
 
 class Login(APIView):
     permission_classes = [AllowAny]
-    serializer_class = UserLoginSerializer  
+    serializer_class = UserLoginSerializer
 
     def post(self, request):
         email = request.data.get('email')
@@ -178,7 +176,7 @@ class Login(APIView):
                 return response
             else:
                 return Response({'Error':'Wrong password'}, status.HTTP_403_FORBIDDEN)
-        else: 
+        else:
             return Response({'Error': 'Account not active or bad request'}, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -198,7 +196,7 @@ class Refresh(APIView):
             return response
         else:
             return Response({'Error':'no refresh_token cookie'}, status=status.HTTP_400_BAD_REQUEST)
-            
+
 
 
 
@@ -212,5 +210,5 @@ class Logout(APIView):
             return response
         else:
             return Response({'Error':'can not clear cookies'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
-        
+
 
