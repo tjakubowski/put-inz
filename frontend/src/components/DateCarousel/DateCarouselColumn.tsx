@@ -1,15 +1,9 @@
 import React, { useContext } from 'react';
-import {
-  StyledColumn,
-  StyledContent,
-  StyledDate,
-  StyledDay,
-  StyledHeader,
-} from './styledColumn';
-import Button from '../Button';
+import { StyledColumn, StyledContent, StyledDate, StyledDay, StyledHeader } from './styledColumn';
+import Button from 'components/Button';
 import { ThemeContext } from 'styled-components';
 import { Dayjs } from 'dayjs';
-import { DatesGroup } from '../../utils/date';
+import { DatesGroup } from 'utils/date';
 
 interface IDateCarouselColumnProps {
   datesGroup: DatesGroup;

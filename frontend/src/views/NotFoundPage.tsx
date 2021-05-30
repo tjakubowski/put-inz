@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
-import DefaultLayout from '../layouts/DefaultLayout';
-import { Col, Container, Row } from '../components/Grid';
-import Button from '../components/Button';
+import DefaultLayout from 'layouts/DefaultLayout';
+import { Col, Container, Row } from 'components/Grid';
+import Button from 'components/Button';
 import { Link } from 'react-router-dom';
-import { RouterPaths } from '../router/paths';
+import { Paths } from 'types/router';
 import styled, { ThemeContext } from 'styled-components';
-import { ReactComponent as NoDataImage } from '../assets/illustrations/undraw-no-data.svg';
+import { ReactComponent as NoDataImage } from 'assets/illustrations/undraw-no-data.svg';
 
 const StyledCol = styled(Col)`
   display: flex;
@@ -32,7 +32,7 @@ const NotFoundPage = () => {
           <StyledCol>
             <StyledHeader>Nie znaleziono strony</StyledHeader>
             <StyledImage />
-            <Link to={RouterPaths.Homepage}>
+            <Link to={Paths.Homepage}>
               <Button text color={theme.colors.primary}>
                 Wroć do strony głównej
               </Button>

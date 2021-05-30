@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Meta, Story } from '@storybook/react';
 
 import Card, { ICardProps } from './Card';
-import Button from '../Button';
+import Button from 'components/Button';
 import { ThemeContext } from 'styled-components';
 
 export default {

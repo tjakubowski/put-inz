@@ -1,6 +1,6 @@
 import React from 'react';
 import RadioContext from './RadioContext';
-import Error from '../Error';
+import Error from 'components/Input/Error';
 
 export interface IRadioGroupProps {
   error?: string;
@@ -9,13 +9,7 @@ export interface IRadioGroupProps {
   onChange?(value: string | number): any;
 }
 
-const Group: React.FC<IRadioGroupProps> = ({
-  children,
-  error,
-  name,
-  defaultValue,
-  onChange,
-}) => {
+const Group: React.FC<IRadioGroupProps> = ({ children, error, name, defaultValue, onChange }) => {
   const [value, setValue] = React.useState<string | number>('');
 
   function handleOnChange(radioValue: string | number) {

@@ -2,19 +2,19 @@ import React, { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 import { useForm, Controller } from 'react-hook-form';
 
-import { Col, Row } from '../Grid';
-import Select from '../Input/Select';
-import TextInput from '../Input/TextInput';
-import Button from '../Button';
-import Checkbox from '../Input/Checkbox';
-import DateCarousel from '../DateCarousel';
+import { Col, Row } from 'components/Grid';
+import Select from 'components/Input/Select';
+import TextInput from 'components/Input/TextInput';
+import Button from 'components/Button';
+import Checkbox from 'components/Input/Checkbox';
+import DateCarousel from 'components/DateCarousel';
 
 import { Dayjs } from 'dayjs';
 import { useBreakpoint } from 'styled-breakpoints/react-styled';
 import { up } from 'styled-breakpoints';
 
-import dates from '../DateCarousel/__mocks__/dates';
-import selectData from '../Input/Select/__mocks__/selectData';
+import dates from 'components/DateCarousel/__mocks__/dates';
+import selectData from 'components/Input/Select/__mocks__/selectData';
 
 interface IFormData {
   firstname: string;

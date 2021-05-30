@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
-import Button from '../../Button';
-import Avatar from '../../Avatar';
-import { ThemeContext } from 'styled-components';
+import React from 'react';
+import Button from 'components/Button';
+import Avatar from 'components/Avatar';
 import { StyledRow, StyledCell } from './styled';
 
 export interface IListItemProps {
@@ -11,8 +10,6 @@ export interface IListItemProps {
 }
 
 const ListItem: React.VFC<IListItemProps> = ({ name, specialty, phone }) => {
-  const theme = useContext(ThemeContext);
-
   return (
     <StyledRow>
       <StyledCell>
