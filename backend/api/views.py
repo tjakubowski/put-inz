@@ -98,3 +98,24 @@ class AppointmentInfoView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+
+class DoctorAppointmentListView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, pk):
+        queryset = Appointment.objects.filter(doctor=pk)
+        serializer = AppointmentSerializer(queryset, many=True)
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+
+class PatientAppointmentListView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, pk):
+        queryset = Appointment.objects.filter(patient=pk)
+        serializer = AppointmentSerializer(queryset, many=True)
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
