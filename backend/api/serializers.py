@@ -119,6 +119,7 @@ class AppointmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Appointment
         fields = (
+            'pk',
             'doctor',
             'patient',
             'appointment_date',

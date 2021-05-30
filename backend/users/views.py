@@ -142,5 +142,3 @@ class LoginView(APIView):
                 return Response({'Error':'Wrong password'}, status.HTTP_403_FORBIDDEN)
         else: 
             return Response({'Error': 'Account not active or bad request'}, status=status.HTTP_400_BAD_REQUEST)
-
-           
