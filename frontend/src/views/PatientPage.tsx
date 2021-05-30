@@ -1,7 +1,7 @@
 import React from 'react';
 import DefaultLayout from '../layouts/DefaultLayout';
 import { Container } from '../components/Grid';
-import BasicInfo from '../components/BasicInfo';
+import PatientInfo from '../components/PatientInfo';
 import { Row, Col } from '../components/Grid';
 import PatientCard from '../components/PatientCard';
 
@@ -14,7 +14,7 @@ const PatientPage = () => {
             <PatientCard />
           </Col>
           <Col cols={8}>
-            <BasicInfo />
+            <PatientInfo />
           </Col>
         </Row>
       </Container>

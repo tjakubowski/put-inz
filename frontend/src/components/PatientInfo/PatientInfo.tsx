@@ -3,7 +3,7 @@ import Card from '../Card';
 import { Row, Col } from '../Grid';
 import { DataCell, DataCellText, DataDiv } from './styled';
 
-const BasicInfo: React.FC = () => {
+const PatientInfo: React.FC = () => {
   return (
     <Card>
       <DataDiv>
@@ -78,4 +78,4 @@ const BasicInfo: React.FC = () => {
   );
 };
 
-export default BasicInfo;
+export default PatientInfo;
