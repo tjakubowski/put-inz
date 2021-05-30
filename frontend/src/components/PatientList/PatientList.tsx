@@ -1,5 +1,5 @@
 import React from 'react';
-import ListItem from './ListItem';
+import PatientListItem from './PatientListItem';
 import { StyledTable, StyledTableHeader } from './styled';
 
 const PatientList: React.FC = () => {
@@ -18,7 +18,7 @@ const PatientList: React.FC = () => {
         </tr>
       </thead>
       <tbody>
-        <ListItem
+        <PatientListItem
           name="Diane Cooper"
           phone="+1 (212) 556-5566"
           city="New York"
@@ -26,7 +26,7 @@ const PatientList: React.FC = () => {
           last_appointment="Apr 13, 2021"
           register_date="Apr 13, 2021"
         />
-        <ListItem
+        <PatientListItem
           name="Jon Snow"
           phone="+1 (732) 321-1234"
           city="New Jersey"
@@ -34,7 +34,7 @@ const PatientList: React.FC = () => {
           last_appointment="Mar 3, 2021"
           register_date="Jan 18, 2021"
         />
-        <ListItem
+        <PatientListItem
           name="Rachel Green"
           phone="+1 (212) 999-9898"
           city="New York"

@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import Avatar from '../../Avatar';
 import { StyledRow, StyledCell } from './styled';
+import theme from '../../../theme/theme';
+import Button from '../../Button';
 
 export interface IListItemProps {
   name?: string;
@@ -11,7 +13,7 @@ export interface IListItemProps {
   register_date?: string;
 }
 
-const ListItem: React.VFC<IListItemProps> = ({
+const PatientListItem: React.VFC<IListItemProps> = ({
   name,
   phone,
   city,
@@ -30,9 +32,13 @@ const ListItem: React.VFC<IListItemProps> = ({
       <StyledCell>{next_appointment}</StyledCell>
       <StyledCell>{last_appointment}</StyledCell>
       <StyledCell>{register_date}</StyledCell>
-      <StyledCell>...</StyledCell>
+      <StyledCell>
+        <Button type="submit" block color={theme.colors.primary}>
+          Send Message
+        </Button>
+      </StyledCell>
     </StyledRow>
   );
 };
 
-export default ListItem;
+export default PatientListItem;
