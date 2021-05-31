@@ -5,6 +5,7 @@ import { Row, Col } from 'components/Grid';
 import { ButtonDiv, AppointmentsDiv, AppointmentDiv, Small, H2, H2Reversed } from './styled';
 import { margin, padding } from 'polished';
 import theme from '../../theme/theme';
+import Appointment from '../Appointment';
 
 const PatientAppointments: React.FC = () => {
   return (
@@ -21,34 +22,7 @@ const PatientAppointments: React.FC = () => {
             <Button outlined={true}>Medical Records</Button>
           </div>
         </ButtonDiv>
-        <AppointmentsDiv>
-          <AppointmentDiv>
-            <H2>26 Nov '19</H2>
-            <Small>09.00 - 10.00</Small>
-          </AppointmentDiv>
-          <AppointmentDiv>
-            <Small>Treatment</Small>
-            <H2Reversed>Cutting eighths</H2Reversed>
-          </AppointmentDiv>
-          <AppointmentDiv>
-            <Small>Doctor</Small>
-            <H2Reversed>Dr. John Snow</H2Reversed>
-          </AppointmentDiv>
-        </AppointmentsDiv>
-        <AppointmentsDiv>
-          <AppointmentDiv>
-            <H2>26 Nov '19</H2>
-            <Small>09.00 - 10.00</Small>
-          </AppointmentDiv>
-          <AppointmentDiv>
-            <Small>Treatment</Small>
-            <H2Reversed>Cutting eighths</H2Reversed>
-          </AppointmentDiv>
-          <AppointmentDiv>
-            <Small>Doctor</Small>
-            <H2Reversed>Dr. John Snow</H2Reversed>
-          </AppointmentDiv>
-        </AppointmentsDiv>
+        <Appointment></Appointment>
       </Card>
     </div>
   );
