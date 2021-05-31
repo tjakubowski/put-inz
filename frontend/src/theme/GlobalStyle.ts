@@ -19,10 +19,6 @@ const GlobalStyle = createGlobalStyle`
     font-size: 1.6rem;
     font-family: "Open Sans", sans-serif;
   }
-  
-  a {
-    text-decoration: none;
-  }
 `;
 
 export default GlobalStyle;

@@ -1,9 +1,8 @@
 from rest_framework import serializers
-from .models import Appointment, PatientDocumentation
+from .models import Appointment
 from users.models import Doctor, Patient, User, Specialization, Receptionist, Role
 import json
 from django.core.serializers.json import DjangoJSONEncoder
-
 
 # Specialization serializer
 class SpecializationSerializer(serializers.ModelSerializer):
@@ -182,36 +181,3 @@ class InputDatetimeSerializer(serializers.Serializer):
 # Output datetime serializer for list
 class OutputDatetimeSerializer(serializers.Serializer):
     date = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
-
-
-# Serializer for creation of patient's documentation model
-class PatientDocumentationCreateSerializer(serializers.ModelSerializer):
-    doctor_id = serializers.IntegerField()
-    patient_id = serializers.IntegerField()
-    related_appointment_id = serializers.IntegerField()
-
-    class Meta:
-        model = PatientDocumentation
-        fields = (
-            'doctor_id',
-            'patient_id',
-            'related_appointment_id',
-            'description'
-        )
-
-
-class PatientDocumentationSerializer(serializers.ModelSerializer):
-    doctor = DoctorSerializer()
-    patient = PatientSerializer()
-    related_appointment = AppointmentSerializer()
-
-    class Meta:
-        model = PatientDocumentation
-        fields = (
-            'pk',
-            'doctor',
-            'patient',
-            'related_appointment',
-            'created_at',
-            'description'
-        )

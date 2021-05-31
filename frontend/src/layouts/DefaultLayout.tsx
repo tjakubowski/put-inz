@@ -1,22 +1,14 @@
 import React, { useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Button from 'components/Button';
 import Navbar from 'components/Navbar';
 import { Paths } from 'types/router';
-import { useAppDispatch, useAppSelector } from 'hooks';
+import { useAppSelector } from 'hooks';
 import { ThemeContext } from 'styled-components';
-import { logout } from 'store/auth/actions';
 
 const DefaultLayout: React.FC = ({ children }) => {
-  const isAuthenticated = useAppSelector(({ auth }) => auth.isAuthenticated);
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
   const theme = useContext(ThemeContext);
-  const dispatch = useAppDispatch();
-  const history = useHistory();
-
-  const handleLogout = async () => {
-    await dispatch(logout());
-    history.replace(Paths.Homepage);
-  };
 
   return (
     <>
@@ -29,9 +21,6 @@ const DefaultLayout: React.FC = ({ children }) => {
             <Link to={Paths.Patients}>
               <Button color={theme.colors.primary}>Pacjenci</Button>
             </Link>
-            <Button color={theme.colors.error} text onClick={handleLogout}>
-              Wyloguj
-            </Button>
           </>
         ) : (
           <>

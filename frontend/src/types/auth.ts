@@ -1,5 +1,4 @@
 export enum UserRole {
-  Guest = 'GUEST',
   Patient = 'PATIENT',
   Doctor = 'DOCTOR',
   Receptionist = 'RECEPTIONIST',
@@ -16,8 +15,8 @@ export interface LoginPayload {
 }
 
 interface JwtResponse {
-  access: string;
-  expire: number;
+  accessToken: string;
+  expiresIn: number;
   role: UserRole;
 }
 

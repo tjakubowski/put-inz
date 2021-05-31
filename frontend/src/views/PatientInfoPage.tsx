@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import DefaultLayout from 'layouts/DefaultLayout';
 import { Col, Container, Row } from 'components/Grid';
+import { useAppDispatch, useAppSelector } from 'hooks';
+import { fetchOne } from 'store/patients/actions';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { Patient } from 'store/patients/slice';
-import api from 'api';
 
 interface ParamTypes {
   id?: string;
@@ -16,15 +16,12 @@ const StyledLabel = styled.p`
 
 const PatientInfoPage = () => {
   const { id } = useParams<ParamTypes>();
-  const [patient, setPatient] = useState<Patient>();
+  const dispatch = useAppDispatch();
+  const patient = useAppSelector((state) => state.patients.patient);
 
   useEffect(() => {
-    const getPatient = async () => {
-      const patient = await api.patients.get(id!);
-      setPatient(patient);
-    };
-    getPatient();
-  }, [id]);
+    dispatch(fetchOne(id!));
+  }, [dispatch, id]);
 
   return (
     <DefaultLayout>

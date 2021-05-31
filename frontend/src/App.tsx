@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Paths } from './types/router';
 
 import HomePage from './views/HomePage';
@@ -35,24 +35,19 @@ const App = () => {
             component={HomePage}
             permittedRoles={[UserRole.Doctor]}
           />
-          <GuardedRoute
-            permittedRoles={[UserRole.Guest]}
-            path={Paths.Login}
-            component={LoginPage}
-            redirectPath={Paths.Homepage}
-          />
-          <GuardedRoute
-            permittedRoles={[UserRole.Guest]}
-            path={Paths.Register}
-            component={RegisterPage}
-            redirectPath={Paths.Homepage}
-          />
-          <Route exact path={Paths.Patient} component={PatientInfoPage} />
-          <Route exact path={Paths.Doctor} component={DoctorInfoPage} />
-          <GuardedRoute exact path={Paths.Doctors} component={DoctorsPage} />
+          <Route path={Paths.Login} component={LoginPage} />
+          <Route path={Paths.Register} component={RegisterPage} />
+          <Route path={Paths.Patient} component={PatientInfoPage} />
+          <Route path={Paths.Doctor} component={DoctorInfoPage} />
           <GuardedRoute
             exact
-            permittedRoles={[UserRole.Doctor, UserRole.Receptionist]}
+            permittedRoles={[UserRole.Patient, UserRole.Receptionist]}
+            path={Paths.Doctors}
+            component={DoctorsPage}
+          />
+          <GuardedRoute
+            exact
+            permittedRoles={[UserRole.Patient]}
             path={Paths.Patients}
             component={PatientsPage}
           />

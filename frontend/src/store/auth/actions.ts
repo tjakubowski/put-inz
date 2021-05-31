@@ -19,10 +19,10 @@ export const login = createAsyncThunk(
   'auth/login',
   async (credentials: LoginPayload, { dispatch, getState }) => {
     const result = await authService.login(credentials);
-    const { access, expire } = result;
+    const { accessToken, expiresIn } = result;
 
-    setAuthHeaders(access);
-    delayRefresh(expire, dispatch, getState as () => RootState);
+    setAuthHeaders(accessToken);
+    delayRefresh(expiresIn, dispatch, getState as () => RootState);
 
     return result;
   },
@@ -39,10 +39,10 @@ export const refreshToken = createAsyncThunk(
   'auth/refreshToken',
   async (data, { dispatch, getState }) => {
     const result = await authService.refreshToken();
-    const { access, expire } = result;
+    const { accessToken, expiresIn } = result;
 
-    setAuthHeaders(access);
-    delayRefresh(expire, dispatch, getState as () => RootState);
+    setAuthHeaders(accessToken);
+    delayRefresh(expiresIn, dispatch, getState as () => RootState);
 
     return result;
   },

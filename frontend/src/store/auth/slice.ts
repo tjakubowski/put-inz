@@ -6,13 +6,13 @@ import { UserRole } from 'types/auth';
 export interface AuthState {
   isAuthenticated: boolean;
   isPending: boolean;
-  role: UserRole;
+  role: UserRole | null;
 }
 
 const initialState: AuthState = {
   isAuthenticated: false,
   isPending: false,
-  role: UserRole.Guest,
+  role: null,
 };
 
 export const authSlice = createSlice({
@@ -30,7 +30,7 @@ export const authSlice = createSlice({
     });
     builder.addCase(logout.fulfilled, (state) => {
       state.isAuthenticated = false;
-      state.role = UserRole.Guest;
+      state.role = null;
     });
     builder.addMatcher(isPendingAction, (state) => {
       state.isPending = true;

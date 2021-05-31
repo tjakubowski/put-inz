@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 # from .serializers import AppointmentSerializer
-from .models import Appointment, PatientDocumentation
+from .models import Appointment
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
 from users.models import Doctor, Receptionist, User, Patient
@@ -11,7 +11,7 @@ from dateutil.relativedelta import relativedelta
 from django.utils import dateparse
 from rest_framework.views import APIView
 from .serializers import DoctorSerializer, PatientSerializer, AppointmentCreateSerializer, AppointmentSerializer,\
-    InputDatetimeSerializer, OutputDatetimeSerializer, PatientDocumentationCreateSerializer, PatientDocumentationSerializer
+    InputDatetimeSerializer, OutputDatetimeSerializer
 
 
 class AvailableDates(APIView):
@@ -21,7 +21,7 @@ class AvailableDates(APIView):
     def post(self, request):
         start_date = dateparse.parse_datetime(str(request.data.get('start_date')))
         end_date = dateparse.parse_datetime(str(request.data.get('end_date')))
-        start_date = start_date.replace(minute=0)
+
         dates = []
         nxt = start_date
         delta = relativedelta(**{'hours': 1})
@@ -176,33 +176,3 @@ class AppointmentInfoView(APIView):
 
             return Response(status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
-
-
-class DocumentationInfoView(APIView):
-    permission_classes = [AllowAny]
-    serializer_class = PatientDocumentationCreateSerializer
-
-    def post(self, request):
-        serializer = self.serializer_class(data=request.data)
-
-        if serializer.is_valid():
-            doctor = Doctor.objects.get(user=serializer.data.get('doctor_id'))
-            patient = Patient.objects.get(user=serializer.data.get('patient_id'))
-            rel_appointment = Appointment.objects.get(pk=serializer.data.get('related_appointment_id'))
-
-            patient_documentation = PatientDocumentation(
-                doctor=doctor,
-                patient=patient,
-                related_appointment=rel_appointment,
-                description=serializer.data.get('description')
-            )
-            patient_documentation.save()
-
-            return Response(status=status.HTTP_201_CREATED)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
-
-    def get(self, request):
-        queryset = PatientDocumentation.objects.all()
-        serializer = PatientDocumentationSerializer(queryset, many=True)
-
-        return Response(serializer.data, status=status.HTTP_200_OK)
