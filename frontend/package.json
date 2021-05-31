@@ -32,7 +32,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "HTTPS=true react-scripts start",
+    "start": "cross-env HTTPS=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -75,7 +75,8 @@
     "@storybook/preset-create-react-app": "^3.1.7",
     "@storybook/react": "^6.2.8",
     "@types/react-router-dom": "^5.1.7",
-    "@types/styled-components": "^5.1.9"
+    "@types/styled-components": "^5.1.9",
+    "cross-env": "^7.0.3"
   },
   "resolutions": {
     "babel-loader": "8.1.0"
