@@ -7,7 +7,7 @@ urlpatterns = [
     path('receptionist-registration', ReceptionistCreateView.as_view(), name='ReceptionistCreation'),
     path('doctor-registration', DoctorCreateView.as_view(), name='DoctorCreation'),
     #path('login', LoginView.as_view(), name='PatientLogin'),
-    path('login',Login.as_view(),name='Login'),
-    path('refresh',Refresh.as_view(), name='Refresh'),
-    path('logout',Logout.as_view(), name='Logout')
+    path('login', Login.as_view(),name='Login'),
+    path('refresh', Refresh.as_view(), name='Refresh'),
+    path('logout', Logout.as_view(), name='Logout')
 ]

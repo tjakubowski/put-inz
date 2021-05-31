@@ -6,8 +6,36 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
 from users.models import Doctor, Receptionist, User, Patient
 from django.utils.dateparse import parse_datetime
+from datetime import date, timedelta, datetime
+from dateutil.relativedelta import relativedelta
+from django.utils import dateparse
 from rest_framework.views import APIView
-from .serializers import DoctorSerializer, PatientSerializer, AppointmentCreateSerializer, AppointmentSerializer
+from .serializers import DoctorSerializer, PatientSerializer, AppointmentCreateSerializer, AppointmentSerializer,\
+    InputDatetimeSerializer, OutputDatetimeSerializer
+
+
+class AvailableDates(APIView):
+    permission_classes = [AllowAny]
+    serializer_class = InputDatetimeSerializer
+
+    def post(self, request):
+        start_date = dateparse.parse_datetime(str(request.data.get('start_date')))
+        end_date = dateparse.parse_datetime(str(request.data.get('end_date')))
+        # start_date = start_date.replace(minute=0, second=0, microsecond=0)
+        # end_date = datetime.strptime(request.data.get('end_date'), '%y/%m/%d %H:%M')
+        dates = []
+        nxt = start_date
+        delta = relativedelta(**{'hours': 1})
+
+        while nxt <= end_date:
+            dates.append(nxt)
+            nxt += delta
+
+        serializer = OutputDatetimeSerializer(data=dates)
+        if serializer.is_valid():
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class PatientInfoView(APIView):
@@ -32,13 +60,8 @@ class PatientListView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-
-        if Patient.objects.count() == 1:
-            queryset = Patient.objects.first()
-            serializer = PatientSerializer(queryset, many=False)
-        else:
-            queryset = Patient.objects.all()
-            serializer = PatientSerializer(queryset, many=True)
+        queryset = Patient.objects.all()
+        serializer = PatientSerializer(queryset, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 
@@ -66,13 +89,8 @@ class DoctorListView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-
-        if Doctor.objects.count() == 1:
-            queryset = Doctor.objects.first()
-            serializer = DoctorSerializer(queryset, many=False)
-        else:
-            queryset = Doctor.objects.all()
-            serializer = DoctorSerializer(queryset, many=True)
+        queryset = Doctor.objects.all()
+        serializer = DoctorSerializer(queryset, many=True)
 
         return Response(data=serializer.data)
 
@@ -83,12 +101,8 @@ class AppointmentCreateView(APIView):
     serializer_class = AppointmentCreateSerializer
 
     def get(self, request):
-        if Appointment.objects.count() == 1:
-            queryset = Appointment.objects.first()
-            serializer = AppointmentSerializer(queryset, many=False)
-        else:
-            queryset = Appointment.objects.all()
-            serializer = AppointmentSerializer(queryset, many=True)
+        queryset = Appointment.objects.all()
+        serializer = AppointmentSerializer(queryset, many=True)
         return Response(data=serializer.data)
 
     def post(self, request):
@@ -119,37 +133,24 @@ class AppointmentInfoView(APIView):
     def get(self, request):
         if request.user.is_authenticated:
             if request.user.role.id == 1:
-
-                if Appointment.objects.count() == 1:
-                    queryset = Appointment.objects.first()
-                    serializer = AppointmentSerializer(queryset, many=False)
-                else:
-                    queryset = Appointment.objects.all()
-                    serializer = AppointmentSerializer(queryset, many=False)
+                queryset = Appointment.objects.all()
+                serializer = AppointmentSerializer(queryset, many=True)
                 return Response(serializer.data, status=status.HTTP_200_OK)
 
             if request.user.role.id == 2:
                 doctor = Doctor.objects.get(pk=request.user.pk)
 
                 if Appointment.objects.filter(doctor=doctor).exists():
-                    if Appointment.objects.filter(doctor=doctor).count() == 1:
-                        appointment = Appointment.objects.get(doctor=doctor)
-                        serializer = AppointmentSerializer(appointment, many=False)
-                    else:
-                        appointment = Appointment.objects.filter(doctor=doctor)
-                        serializer = DoctorSerializer(appointment, many=True)
+                    appointment = Appointment.objects.filter(doctor=doctor)
+                    serializer = DoctorSerializer(appointment, many=True)
                     return Response(serializer.data, status=status.HTTP_200_OK)
 
             if request.user.role.id == 3:
                 patient = Patient.objects.get(pk=request.user.pk)
 
                 if Appointment.objects.filter(patient=patient).exists():
-                    if Appointment.objects.filter(patient=patient).count() == 1:
-                        appointment = Appointment.objects.get(patient=patient)
-                        serializer = AppointmentSerializer(appointment, many=False)
-                    else:
-                        appointment = Appointment.objects.filter(patient=patient)
-                        serializer = AppointmentSerializer(appointment, many=True)
+                    appointment = Appointment.objects.filter(patient=patient)
+                    serializer = AppointmentSerializer(appointment, many=True)
                     return Response(serializer.data, status=status.HTTP_200_OK)
             return Response(status=status.HTTP_404_NOT_FOUND)
         else:
@@ -173,26 +174,3 @@ class AppointmentInfoView(APIView):
 
             return Response(status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
-
-# class DoctorAppointmentListView(APIView):
-#     permission_classes = [AllowAny]
-#
-#     def get(self, request, pk):
-#         if Appointment.objects.filter(doctor=pk).exist():
-#             queryset = Appointment.objects.filter(doctor=pk)
-#             serializer = AppointmentSerializer(queryset, many=True)
-#             return Response(data=serializer.data, status=status.HTTP_200_OK)
-#         else:
-#             return Response(status=status.HTTP_400_BAD_REQUEST)
-#
-#
-# class PatientAppointmentListView(APIView):
-#     permission_classes = [AllowAny]
-#
-#     def get(self, request, pk):
-#         if Appointment.objects.filter(patient=pk).exists():
-#             queryset = Appointment.objects.filter(patient=pk)
-#             serializer = AppointmentSerializer(queryset, many=True)
-#             return Response(data=serializer.data, status=status.HTTP_200_OK)
-#         else:
-#             return Response(status=status.HTTP_400_BAD_REQUEST)

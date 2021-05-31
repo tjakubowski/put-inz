@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from .models import Appointment
 from users.models import Doctor, Patient, User, Specialization, Receptionist, Role
-
+import json
+from django.core.serializers.json import DjangoJSONEncoder
 
 # Specialization serializer
 class SpecializationSerializer(serializers.ModelSerializer):
@@ -169,3 +170,16 @@ class ReceptionistSerializer(serializers.ModelSerializer):
             'first_name',
             'last_name'
         )
+
+
+# Serializer for datetimes
+class InputDatetimeSerializer(serializers.Serializer):
+    start_date = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
+    end_date = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
+
+
+# Output datetime serializer for list
+class OutputDatetimeSerializer(serializers.Serializer):
+    dates = serializers.ListField(
+        child=serializers.DateTimeField(format="%Y-%m-%d %H:%M")
+    )
