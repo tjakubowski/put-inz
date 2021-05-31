@@ -23,6 +23,7 @@ const PatientAppointments: React.FC = () => {
           </div>
         </ButtonDiv>
         <Appointment></Appointment>
+        <Appointment></Appointment>
       </Card>
     </div>
   );
