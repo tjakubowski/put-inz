@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Row } from 'components/Grid';
-import { StyledContainer, StyledLogo } from './styled';
+import { StyledContainer, StyledContentContainer, StyledLogo } from './styled';
 import { Paths } from 'types/router';
 
 interface INavbarProps {}
@@ -14,7 +14,7 @@ const Navbar: React.FC<INavbarProps> = ({ children }) => {
           <Link to={Paths.Homepage}>
             <StyledLogo>Logo</StyledLogo>
           </Link>
-          <div>{children}</div>
+          <StyledContentContainer>{children}</StyledContentContainer>
         </Row>
       </Container>
     </StyledContainer>

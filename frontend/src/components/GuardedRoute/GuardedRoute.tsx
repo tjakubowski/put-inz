@@ -5,25 +5,23 @@ import { Paths } from 'types/router';
 import { useAppSelector } from 'hooks';
 
 export interface IGuardedRouteProps extends RouteProps {
-  permittedRoles: UserRole[];
+  permittedRoles?: UserRole[];
   redirectPath?: Paths;
 }
 
 const GuardedRoute: React.VFC<IGuardedRouteProps> = ({
-  permittedRoles,
+  permittedRoles = [],
   redirectPath = '/login',
   ...props
 }) => {
   const role = useAppSelector(({ auth }) => auth.role);
   const history = useHistory();
 
-  if (!role || !permittedRoles.includes(role)) {
+  if (permittedRoles.length > 0 && !permittedRoles.includes(role)) {
     history.replace(redirectPath);
   }
 
   return <Route {...props} />;
 };
-
-GuardedRoute.defaultProps = {};
 
 export default GuardedRoute;

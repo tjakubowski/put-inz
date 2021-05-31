@@ -1,5 +1,7 @@
 import axios from 'axios';
 import config from 'config';
+import { HttpStatusCode } from '../types/http';
+import { Paths } from '../types/router';
 
 const { api } = config;
 
@@ -19,7 +21,12 @@ export const setAuthHeaders = (accessToken: string | null) => {
 http.interceptors.response.use(
   (response) => response,
   (error) => {
-    // TODO: Redirect on 401
+    if (
+      error.response.status === HttpStatusCode.Unauthorized &&
+      window.location.pathname !== Paths.Login
+    ) {
+      window.location.replace(Paths.Login);
+    }
 
     return Promise.reject(error);
   },
