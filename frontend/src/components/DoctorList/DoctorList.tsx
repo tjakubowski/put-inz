@@ -1,30 +1,28 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import ListItem from './ListItem';
 import { StyledTable, StyledTableHeader } from './styled';
+import { Doctor } from '../../store/doctors/slice';
 
-const DoctorList: React.FC = () => {
+export interface IDoctorListProps {
+  doctors: Doctor[];
+}
+
+const DoctorList: React.VFC<IDoctorListProps> = ({ doctors = [] }) => {
   return (
     <StyledTable>
       <thead>
         <tr>
           <StyledTableHeader> </StyledTableHeader>
-          <StyledTableHeader>Name</StyledTableHeader>
-          <StyledTableHeader>Specialty</StyledTableHeader>
-          <StyledTableHeader>Phone number</StyledTableHeader>
+          <StyledTableHeader>Imię i nazwisko</StyledTableHeader>
+          <StyledTableHeader>Specjalność</StyledTableHeader>
           <StyledTableHeader> </StyledTableHeader>
         </tr>
       </thead>
       <tbody>
-        <ListItem
-          name="Floyd Whitney"
-          specialty="Cardiologist"
-          phone="+1 (212) 556-5566"
-        />
-        <ListItem
-          name="Lauren Bloom"
-          specialty="E.R. Doctor"
-          phone="+1 (212) 556-6655"
-        />
+        {doctors &&
+          doctors.map((doctor) => {
+            return <ListItem key={doctor.id} doctor={doctor} />;
+          })}
       </tbody>
     </StyledTable>
   );

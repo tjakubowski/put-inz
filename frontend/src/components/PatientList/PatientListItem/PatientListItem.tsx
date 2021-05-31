@@ -3,39 +3,33 @@ import Avatar from 'components/Avatar';
 import { StyledRow, StyledCell } from './styled';
 import theme from 'theme/theme';
 import Button from 'components/Button';
+import { Link } from 'react-router-dom';
+import { generatePath } from 'utils/router';
+import { Paths } from 'types/router';
+import { Patient } from 'store/patients/slice';
 
 export interface IListItemProps {
-  name?: string;
-  phone?: string;
-  city?: string;
-  next_appointment?: string;
-  last_appointment?: string;
-  register_date?: string;
+  patient: Patient;
 }
 
-const PatientListItem: React.VFC<IListItemProps> = ({
-  name,
-  phone,
-  city,
-  next_appointment,
-  last_appointment,
-  register_date,
-}) => {
+const PatientListItem: React.VFC<IListItemProps> = ({ patient }) => {
+  const name = [patient.firstname, patient.lastname].join(' ');
+  const { id, pesel, phone } = patient;
+
   return (
     <StyledRow>
       <StyledCell>
         <Avatar />
       </StyledCell>
-      <StyledCell>{name}</StyledCell>
-      <StyledCell>{phone}</StyledCell>
-      <StyledCell>{city}</StyledCell>
-      <StyledCell>{next_appointment}</StyledCell>
-      <StyledCell>{last_appointment}</StyledCell>
-      <StyledCell>{register_date}</StyledCell>
+      <StyledCell>{name || '-'}</StyledCell>
+      <StyledCell>{phone || '-'}</StyledCell>
+      <StyledCell>{pesel || '-'}</StyledCell>
       <StyledCell>
-        <Button type="submit" block color={theme.colors.primary}>
-          Send Message
-        </Button>
+        <Link to={generatePath(Paths.Patient, { id })}>
+          <Button color={theme.colors.primary} text sm block>
+            Więcej
+          </Button>
+        </Link>
       </StyledCell>
     </StyledRow>
   );

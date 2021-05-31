@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from 'styled-components';
 import { useForm, Controller } from 'react-hook-form';
 
@@ -9,12 +9,11 @@ import Button from 'components/Button';
 import Checkbox from 'components/Input/Checkbox';
 import DateCarousel from 'components/DateCarousel';
 
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import { useBreakpoint } from 'styled-breakpoints/react-styled';
 import { up } from 'styled-breakpoints';
 
-import dates from 'components/DateCarousel/__mocks__/dates';
-import selectData from 'components/Input/Select/__mocks__/selectData';
+import api from 'api';
 
 interface IFormData {
   firstname: string;
@@ -28,7 +27,14 @@ interface IFormData {
   date: Dayjs;
 }
 
+interface SelectData {
+  label: string;
+  value: string;
+}
+
 const ReservationForm: React.FC = () => {
+  const [dates, setDates] = useState<Dayjs[]>([]);
+  const [doctors, setDoctors] = useState<SelectData[]>([]);
   const theme = useContext(ThemeContext);
   const isLargeDesktop = useBreakpoint(up('lg'));
   const {
@@ -36,6 +42,25 @@ const ReservationForm: React.FC = () => {
     control,
     formState: { errors },
   } = useForm<IFormData>();
+
+  useEffect(() => {
+    const getDates = async () => {
+      const dates = await api.availableDates.getBetween(dayjs(), dayjs().add(4, 'days'));
+      setDates(dates);
+    };
+
+    const getDoctors = async () => {
+      const doctors = await api.doctors.getAll();
+      const doctorsSelect: SelectData[] = doctors.map((doctor) => ({
+        label: [doctor.firstname, doctor.lastname].join(' '),
+        value: '' + doctor.id,
+      }));
+      setDoctors(doctorsSelect);
+    };
+
+    getDates();
+    getDoctors();
+  }, []);
 
   const onSubmit = (data: IFormData) => console.log(data);
 
@@ -138,7 +163,7 @@ const ReservationForm: React.FC = () => {
               <Select
                 placeholder="Wyszukaj lekarza"
                 label="Lekarz"
-                options={selectData}
+                options={doctors}
                 onChange={onChange}
                 value={value}
                 onBlur={onBlur}
@@ -169,7 +194,6 @@ const ReservationForm: React.FC = () => {
           <Controller
             control={control}
             name="note"
-            rules={{ required: { value: true, message: 'Pole jest wymagane' } }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
                 label="Dodatkowa notatka"
@@ -200,7 +224,7 @@ const ReservationForm: React.FC = () => {
         </Col>
         <Col cols={12}>
           <Button type="submit" block color={theme.colors.primary}>
-            Send reservation
+            Wyślij rezerwację
           </Button>
         </Col>
       </Row>

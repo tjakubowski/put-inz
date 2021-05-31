@@ -2,13 +2,15 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchAll, fetchOne } from './actions';
 
 export type Doctor = {
-  firstname: string,
-  lastname: string,
-}
+  id: number;
+  firstname: string;
+  lastname: string;
+  specializations: string[];
+};
 
 interface DoctorsState {
-  doctor?: Doctor | null,
-  doctors: Doctor[],
+  doctor?: Doctor | null;
+  doctors: Doctor[];
 }
 
 const initialState: DoctorsState = {

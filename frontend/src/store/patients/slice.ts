@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchAll, fetchOne } from './actions';
 
 export type Patient = {
+  id: number;
   firstname: string;
   lastname: string;
   pesel: string;
