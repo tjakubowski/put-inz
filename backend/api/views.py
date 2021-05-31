@@ -21,8 +21,7 @@ class AvailableDates(APIView):
     def post(self, request):
         start_date = dateparse.parse_datetime(str(request.data.get('start_date')))
         end_date = dateparse.parse_datetime(str(request.data.get('end_date')))
-        # start_date = start_date.replace(minute=0, second=0, microsecond=0)
-        # end_date = datetime.strptime(request.data.get('end_date'), '%y/%m/%d %H:%M')
+
         dates = []
         nxt = start_date
         delta = relativedelta(**{'hours': 1})
@@ -31,11 +30,14 @@ class AvailableDates(APIView):
             dates.append(nxt)
             nxt += delta
 
-        serializer = OutputDatetimeSerializer(data=dates)
-        if serializer.is_valid():
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+        json_list = []
+        for i in dates:
+            _json = {"date": i}
+            json_list.append(_json)
+
+        serializer = OutputDatetimeSerializer(json_list, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class PatientInfoView(APIView):

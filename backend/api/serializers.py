@@ -180,6 +180,4 @@ class InputDatetimeSerializer(serializers.Serializer):
 
 # Output datetime serializer for list
 class OutputDatetimeSerializer(serializers.Serializer):
-    dates = serializers.ListField(
-        child=serializers.DateTimeField(format="%Y-%m-%d %H:%M")
-    )
+    date = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
