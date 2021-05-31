@@ -1,9 +1,10 @@
 import React from 'react';
 import DefaultLayout from 'layouts/DefaultLayout';
 import { Container } from 'components/Grid';
-import PatientInfo from 'components/PatientInfo';
 import { Row, Col } from 'components/Grid';
+import PatientInfo from 'components/PatientInfo';
 import PatientCard from 'components/PatientCard';
+import PatientAppointments from 'components/PatientAppointments';
 
 const PatientPage = () => {
   return (
@@ -17,6 +18,9 @@ const PatientPage = () => {
             <PatientInfo />
           </Col>
         </Row>
+      </Container>
+      <Container>
+        <PatientAppointments />
       </Container>
     </DefaultLayout>
   );

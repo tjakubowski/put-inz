@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const DataDiv = styled.div`
-  padding: 40px 30px;
+  padding: 60px 30px;
 `;
 
 export const DataCell = styled.div`
